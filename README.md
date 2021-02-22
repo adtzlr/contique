@@ -62,4 +62,4 @@ plt.xlabel('$x_1$')
 plt.ylabel('$x_2$')
 ```
 
-<img src="https://github.com/adtzlr/contique/blob/main/test/test_sincos.svg" width="30%">
+<img src="https://raw.githubusercontent.com/adtzlr/contique/main/test/test_sincos.svg" width="30%">
