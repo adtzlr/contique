@@ -46,6 +46,22 @@ Res = contique.solve(
 )
 ```
 
+For each `step` a summary is printed. This contains needed Newton-Rhapson `iterations` per `cycle` and an information about the control component at the beginning and the end of a cycle. Finally the `lpf`, `control` and `equilibrium norm` values are listed. As an example the ouput of Step 77 is shown below.
+
+```markdown
+Begin of Step 77 
+====================================================================
+
+| Cycle | converged in                        | control component  |
+|-------|-------------------------------------|--------------------|
+| #   1 | Solution converged in  1 Iteration  | from   -2 to   -1  |
+| #   2 | Solution converged in  2 Iterations | from   -1 to   -1  |
+
+*final lpf value     = -5.376e-01
+*final control value =  3.179e+00
+*final equilibrium   =  1.949e-09 (norm)
+```
+
 Assemble results
 
 ```python
