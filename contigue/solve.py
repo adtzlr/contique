@@ -66,9 +66,9 @@ def solve(
     for step in 1 + np.arange(maxsteps):
         ## pre-identification of control component
         res = newtonxt(g, y0, dgdy, j0, dymax, maxiter=1, tol=tol)
-        print("\nBegin of Step %d" % step, "\n" + "=" * 46 + "\n")
-        print("| Cycle | converged in  | control component  |")
-        print("|" + "-" * 7 + "|" + "-" * 15 + "|" + "-" * 20 + "|")
+        print("\nBegin of Step %d" % step, "\n" + "=" * 68 + "\n")
+        print("| Cycle | converged in                        | control component  |")
+        print("|" + "-" * 7 + "|" + "-" * 37 + "|" + "-" * 20 + "|")
         # Increment loop.
         for cycl in 1 + np.arange(maxcycles):
             res = newtonxt(g, y0, dgdy, j0, dymax, maxiter=maxiter, tol=tol)

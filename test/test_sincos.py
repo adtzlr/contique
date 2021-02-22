@@ -1,4 +1,5 @@
 import matplotlib.pyplot as plt
+import numpy as np
 import pytest
 
 import contigue
@@ -34,3 +35,6 @@ def test_sincos():
     X = np.array([res.x for res in Res])
 
     plt.plot(X[:, 0], X[:, 1], ".-")
+
+if __name__ == "__main__":
+    test_sincos()
