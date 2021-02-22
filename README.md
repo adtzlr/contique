@@ -14,7 +14,7 @@ A given set of equilibrium equations in terms of `x` and `lpf` (a.k.a. load-prop
 ```python
 def fun(x, lpf, a, b):
     return np.array([-a * np.sin(x[0]) + x[1]**2 + lpf, 
-                     -b * np.cos(x[1]) * x[1]      + lpf])
+                     -b * np.cos(x[1]) * x[1]    + lpf])
 ```
 
 with it's initial solution
