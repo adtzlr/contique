@@ -45,7 +45,7 @@ def test_archimedian_spiral():
     plt.arrow(X[-2,0],X[-2,1],X[-1,0]-X[-2,0],X[-1,1]-X[-2,1],
               head_width=1, head_length=2, fc='C0', ec='C0')
     plt.gca().set_aspect('equal')
-    plt.savefig('test_archimedian_spiral.svg')
+    plt.savefig('test_archimedean_spiral.svg')
 
 if __name__ == "__main__":
     test_archimedian_spiral()
