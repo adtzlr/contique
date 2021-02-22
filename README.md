@@ -6,7 +6,7 @@ Numeric **conti**nuation of e**qu**ilibrium **e**quations
 ![Made with love in Graz](https://madewithlove.now.sh/at?heart=true&colorA=%233b3b3b&colorB=%231f744f&text=Graz)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
-<img src="https://raw.githubusercontent.com/adtzlr/contique/main/test/test_archimedian_spiral.svg" width="100%">
+<img src="https://raw.githubusercontent.com/adtzlr/contique/main/test/test_archimedian_spiral.svg" width="75%">
 Fig.1 Archimedian spiral equation solved with `contique`
 
 ## Example
@@ -81,4 +81,5 @@ plt.xlabel('$x_1$')
 plt.ylabel('$x_2$')
 ```
 
-<img src="https://raw.githubusercontent.com/adtzlr/contique/main/test/test_sincos.svg" width="30%">
+<img src="https://raw.githubusercontent.com/adtzlr/contique/main/test/test_sincos.svg" width="75%">
+Fig.2 Solution of equilibrium states solved with `contique`
