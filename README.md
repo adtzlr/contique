@@ -62,7 +62,7 @@ Begin of Step 77
 *final equilibrium   =  1.949e-09 (norm)
 ```
 
-Next wie have to assemble the results
+Next, we have to assemble the results
 
 ```python
 X = np.array([res.x for res in Res])
