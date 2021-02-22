@@ -1,5 +1,5 @@
 # contique
-Numeric **conti**nuation of e**qu**ilibrium **e**quations
+Numeric **conti**nuation of nonlinear e**qu**ilibrium **e**quations
 
 [![PyPI version shields.io](https://img.shields.io/pypi/v/contique.svg)](https://pypi.python.org/pypi/contique/)
 [![PyPI pyversions](https://img.shields.io/pypi/pyversions/contique.svg)](https://pypi.python.org/pypi/contique/)
@@ -22,7 +22,7 @@ def fun(x, lpf, a, b):
                      -b * np.cos(x[1]) * x[1]    + lpf])
 ```
 
-with it's initial solution
+with its initial solution
 ```python
 x0 = np.zeros(2)
 lpf0 = 0.0
