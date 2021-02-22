@@ -6,6 +6,8 @@ Numeric **conti**nuation of e**qu**ilibrium **e**quations
 ![Made with love in Graz](https://madewithlove.now.sh/at?heart=true&colorA=%233b3b3b&colorB=%231f744f&text=Graz)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
+<img src="https://raw.githubusercontent.com/adtzlr/contique/main/test/test_archimedian_spiral.svg" width="30%">
+
 ## Example
 A given set of equilibrium equations in terms of `x` and `lpf` (a.k.a. load-proportionality-factor) should be solved by numeric continuation of a given initial solution.
 
