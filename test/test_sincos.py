@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pytest
 
-import contigue
+import contique
 
 
 def fun(x, l, a, b):
@@ -19,7 +19,7 @@ def test_sincos():
     a, b = 1, 1
 
     # numeric continuation
-    Res = contigue.solve(
+    Res = contique.solve(
         fun=fun,
         x0=x0,
         args=(a, b),
@@ -35,6 +35,8 @@ def test_sincos():
     X = np.array([res.x for res in Res])
 
     plt.plot(X[:, 0], X[:, 1], ".-")
+    plt.xlabel('$x_1$')
+    plt.ylabel('$x_2$')
 
 if __name__ == "__main__":
     test_sincos()
