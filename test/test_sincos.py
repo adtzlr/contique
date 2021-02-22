@@ -37,6 +37,7 @@ def test_sincos():
     plt.plot(X[:, 0], X[:, 1], ".-")
     plt.xlabel('$x_1$')
     plt.ylabel('$x_2$')
+    plt.savefig('test_sincos.svg')
 
 if __name__ == "__main__":
     test_sincos()

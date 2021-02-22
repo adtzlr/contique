@@ -6,11 +6,11 @@ Numeric **conti**nuation of e**qu**ilibrium **e**quations
 ![Made with love in Graz](https://madewithlove.now.sh/at?heart=true&colorA=%233b3b3b&colorB=%231f744f&text=Graz)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
-# Examples
+## Example
 A given set of equilibrium equations in terms of `x` and `lpf` (a.k.a. load-proportionality-factor) should be solved by numeric continuation of a given initial solution.
 
 
-## Function definition
+### Function definition
 ```python
 def fun(x, lpf, a, b):
     return np.array([-a * np.sin(x[0]) + x[1]**2 + lpf, 
@@ -29,8 +29,7 @@ a = 1
 b = 1
 ```
 
-## Run `contique.solve` 
-Run the Solver, assemble and plot results.
+### Run `contique.solve` and plot equilibrium states
 
 ```python
 Res = contique.solve(
@@ -62,3 +61,5 @@ plt.plot(X[:, 0], X[:, 1], ".-")
 plt.xlabel('$x_1$')
 plt.ylabel('$x_2$')
 ```
+
+<img src="https://github.com/adtzlr/contique/blob/main/test/test_sincos.svg" width="30%">
