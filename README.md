@@ -87,4 +87,4 @@ plt.gca().set_aspect('equal')
 ```
 
 <img src="https://raw.githubusercontent.com/adtzlr/contique/main/test/test_sincos.svg" width="75%">
-Fig.2 Solution of equilibrium states solved with contique
+Fig.2 Solution states of [equilibrium equations](https://github.com/adtzlr/contique/blob/main/test/test_sincos.py) solved with contique
