@@ -14,7 +14,7 @@ A given set of equilibrium equations in terms of `x` and `lpf` (a.k.a. load-prop
 ```python
 def fun(x, lpf, a, b):
     return np.array([-a * np.sin(x[0]) + x[1]**2 + lpf, 
-	                 -b * np.cos(x[1]) * x[1]      + lpf])
+                     -b * np.cos(x[1]) * x[1]      + lpf])
 ```
 
 with it's initial solution
@@ -33,16 +33,16 @@ b = 1
 
 ```python
 Res = contique.solve(
-	fun=fun,
-	x0=x0,
-	args=(a, b),
-	lpf0=lpf0,
-	dxmax=0.05,
-	dlpfmax=0.05,
-	maxsteps=80,
-	maxcycles=4,
-	maxiter=20,
-	tol=1e-6,
+    fun=fun,
+    x0=x0,
+    args=(a, b),
+    lpf0=lpf0,
+    dxmax=0.05,
+    dlpfmax=0.05,
+    maxsteps=80,
+    maxcycles=4,
+    maxiter=20,
+    tol=1e-6,
 )
 ```
 
