@@ -75,7 +75,7 @@ def newtonxt(
     # init needle-vector and obtain ymax
     n = needle(control0, len(y0))
     ymax = y0 + np.sign(control0) * dymax
-    
+
     # Newton-Rhapson solver
     res = newtonrhapson(
         fun=funxt,
@@ -85,11 +85,11 @@ def newtonxt(
         maxiter=maxiter,
         tol=tol,
     )
-    
+
     # normalized dy = dy/dymax
     res.dys = (res.x - y0) / dymax
-    
+
     # final control component based on dnormalized dy
     res.control = control(res.dys)
-    
+
     return res

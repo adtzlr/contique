@@ -33,7 +33,7 @@ def solve(
 
     # init number of unknows
     ncomp = 1 + len(x0)
-    
+
     # initial control component
     if control0 == "lpf":
         j0 = ncomp
@@ -58,29 +58,35 @@ def solve(
 
         # Cycle loop.
         for cycl in 1 + np.arange(maxcycles):
-        
+
             # Newton Iterations.
             res = newtonxt(
                 fun, jac, y0, j0, dymax, jacmode, jaceps, args, maxiter=maxiter, tol=tol
             )
             printinfo.cycle(
-                step, cycl, j0, res.control, res.status, np.linalg.norm(res.fun), res.niterations,
-                max(abs(res.dys)) <= overshoot
+                step,
+                cycl,
+                j0,
+                res.control,
+                res.status,
+                np.linalg.norm(res.fun),
+                res.niterations,
+                max(abs(res.dys)) <= overshoot,
             )
 
             # Did Newton Iterations converge?
             if res.success:
-            
+
                 # Did control component change? OR Was overshoot inside allowed range?
                 if (res.control == j0) or (max(abs(res.dys)) <= overshoot):
-                
+
                     # Save results, move to next step.
                     j0 = res.control
                     y0 = res.x
                     Res.append(res)
                     break
-                    
-                else: # Were max. number of cycles reached?
+
+                else:  # Were max. number of cycles reached?
                     if cycl == maxcycles:
                         # Print Error and set success-flag to False.
                         printinfo.errorcontrol()
@@ -96,5 +102,5 @@ def solve(
         if not res.success:
             printinfo.errorfinal()
             break
-            
+
     return Res

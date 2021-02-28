@@ -9,7 +9,6 @@ import numpy as np
 from .helpers import argparser
 
 
-
 class NewtonResult:
     def __init__(self, fun, x0, jac, args):
         self.success = False
@@ -42,9 +41,7 @@ def newtonrhapson(fun, x0, jac, args=(None,), maxiter=8, tol=1e-8):
         if np.linalg.norm(res.fun) < tol:
             res.success = True
             res.status = 1
-            res.message = "Solution converged in {0:2d} Iteration".format(
-                    res.iteration
-                )
+            res.message = "Solution converged in {0:2d} Iteration".format(res.iteration)
             if res.iteration > 1:
                 res.message = res.message + "s"
 
