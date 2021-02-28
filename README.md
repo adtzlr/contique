@@ -47,26 +47,31 @@ Res = contique.solve(
     maxsteps=75,
     maxcycles=4,
     maxiter=20,
-    tol=1e-6,
+    tol=1e-8,
+    overshoot=1.05
 )
 ```
 
-For each `step` a summary is printed out per cylce. This contains an information about the control component at the beginning and the end of a cycle as well as the norm of the residuals along with needed Newton-Rhapson `iterations` per `cycle`. As an example the ouput of Steps 31-40 are shown below. The last column contains messages about the solution. On the one hand, in `step` 32, `cycle` 1 the control component changed from `+1` to `-2`, but the relative overshoot on the final control component `-2` was inside the tolerated range of `overshoot=1.05`. Therefore the solver proceeds with `step` 33 without re-cycling `step` 32. On the other hand, in `step` 39, `cycle` 1 the control component changed from `-2` to `-1` and this time the overshoot on the final control component `-1` was outside the tolerated range. A new `cycle` 2 is performed for `step` 39 with the new control component `-1`.
+For each `step` a summary is printed out per cylce. This contains an information about the control component at the beginning and the end of a cycle as well as the norm of the residuals along with needed Newton-Rhapson `iterations` per `cycle`. As an example the ouput of some interesting `steps` 31-33 and 38-40 are shown below. The last column contains messages about the solution. On the one hand, in `step` 32, `cycle` 1 the control component changed from `+1` to `-2`, but the relative overshoot on the final control component `-2` was inside the tolerated range of `overshoot=1.05`. Therefore the solver proceeds with `step` 33 without re-cycling `step` 32. On the other hand, in `step` 39, `cycle` 1 the control component changed from `-2` to `-1` and this time the overshoot on the final control component `-1` was outside the tolerated range. A new `cycle` 2 is performed for `step` 39 with the new control component `-1`.
 
 ```markdown
 |Step,C.| Control Comp. | Norm (Iter.#) | Message     |
 |-------|---------------|---------------|-------------|
+
+(...)
+
 |  31,1 |   +1  =>   +1 | 7.6e-10 ( 3#) |             |
 |  32,1 |   +1  =>   -2 | 1.7e-14 ( 4#) |tol.Overshoot|
 |  33,1 |   -2  =>   -2 | 4.8e-12 ( 3#) |             |
-|  34,1 |   -2  =>   -2 | 2.3e-11 ( 3#) |             |
-|  35,1 |   -2  =>   -2 | 5.5e-11 ( 3#) |             |
-|  36,1 |   -2  =>   -2 | 7.4e-11 ( 3#) |             |
-|  37,1 |   -2  =>   -2 | 5.0e-11 ( 3#) |             |
+
+ (...)
+ 
 |  38,1 |   -2  =>   -2 | 9.2e-12 ( 3#) |             |
 |  39,1 |   -2  =>   -1 | 1.9e-13 ( 3#) | => re-Cycle |
 |     2 |   -1  =>   -1 | 2.3e-13 ( 4#) |             |
 |  40,1 |   -1  =>   -1 | 7.9e-09 ( 3#) |             |
+
+(...)
 ```
 
 Next, we have to assemble the results
