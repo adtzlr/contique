@@ -29,7 +29,7 @@ def test_sincos():
         maxsteps=75,
         maxcycles=4,
         maxiter=20,
-        tol=1e-6,
+        tol=1e-8,
     )
 
     X = np.array([res.x for res in Res])

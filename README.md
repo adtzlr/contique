@@ -47,24 +47,19 @@ Res = contique.solve(
     maxsteps=75,
     maxcycles=4,
     maxiter=20,
-    tol=1e-6,
+    tol=1e-12,
 )
 ```
 
-For each `step` a summary is printed. This contains needed Newton-Rhapson `iterations` per `cycle` and an information about the control component at the beginning and the end of a cycle. Finally the `lpf`, `control` and `equilibrium norm` values are listed. As an example the ouput of Step 77 is shown below.
+For each `step` a summary is printed out per cylce. This contains needed Newton-Rhapson `iterations` per `cycle` if the step was successful and an information about the control component at the beginning and the end of a cycle. As an example the ouput of Steps 71, 72 and 73 are shown below.
 
 ```markdown
-Begin of Step 72 
-====================================================================
-
-| Cycle | converged in                        | control component  |
-|-------|-------------------------------------|--------------------|
-| #   1 | Solution converged in  3 Iterations | from   -1 to   +2  |
-| #   2 | Solution converged in  2 Iterations | from   +2 to   +2  |
-
-*final lpf value     = -4.820e-01
-*final control value = -5.739e-01
-*final equilibrium   =  6.136e-11 (norm)
+| Step (Cycle) | Control Comp. | Equili. | Status        |
+|--------------|---------------|---------|---------------|
+|   71     (1) |   -1  =>   -1 | 1.1e-13 | Success ( 4#) |
+|   72     (1) |   -1  =>   +2 | 1.4e-09 | Recycle       |
+|          (2) |   +2  =>   +2 | 6.1e-11 | Success ( 3#) |
+|   73     (1) |   +2  =>   +2 | 1.1e-10 | Success ( 3#) |
 ```
 
 Next, we have to assemble the results

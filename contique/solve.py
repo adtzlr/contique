@@ -59,7 +59,7 @@ def solve(
                 fun, jac, y0, j0, dymax, jacmode, jaceps, args, maxiter=maxiter, tol=tol
             )
             printinfo.cycle(
-                step, cycl, j0, res.control, res.status, np.linalg.norm(res.fun)
+                step, cycl, j0, res.control, res.status, np.linalg.norm(res.fun), res.niterations
             )
 
             if res.success:

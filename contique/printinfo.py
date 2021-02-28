@@ -2,11 +2,11 @@ import numpy as np
 
 
 def header():
-    print("| Step (Cycle) | Control Comp. | Equili. | Status  |")
-    print("|--------------|---------------|---------|---------|")
+    print("| Step (Cycle) | Control Comp. | Equili. | Status        |")
+    print("|--------------|---------------|---------|---------------|")
 
 
-def cycle(step, cycl, j0, control, status, fnorm):
+def cycle(step, cycl, j0, control, status, fnorm, niterations):
     if cycl > 1:
         stp = "    "
     else:
@@ -17,7 +17,7 @@ def cycle(step, cycl, j0, control, status, fnorm):
     else:
         sts = status
 
-    message = [" Failed", "Success", "Recycle"]
+    message = ["Failed       ", "Success ({:2d}#)".format(niterations), "Recycle      "]
     print(
         "| {0:4s}     ({1:1d}) | {2:+4d}  => {3:+4d} | {4:.1e} | {5:s} |".format(
             stp, cycl, j0, control, fnorm, message[sts]
