@@ -2,25 +2,28 @@ import numpy as np
 
 
 def header():
-    print("| Step (Cycle) | Control Comp. | Equili. | Status        |")
-    print("|--------------|---------------|---------|---------------|")
+    print("|Step,C.| Control Comp. | Norm (Iter.#) | Message     |")
+    print("|-------|---------------|---------------|-------------|")
 
 
-def cycle(step, cycl, j0, control, status, fnorm, niterations):
+def cycle(step, cycl, j0, control, status, fnorm, niterations, overshootcond):
     if cycl > 1:
-        stp = "    "
+        stp = "     "
     else:
-        stp = "{0:4d}".format(step)
+        stp = "{0:4d},".format(step)
 
     if j0 != control and status == 1:
-        sts = 2
+        if overshootcond:
+            sts = 3
+        else:
+            sts = 2
     else:
         sts = status
 
-    message = ["Failed       ", "Success ({:2d}#)".format(niterations), "Recycle      "]
+    message = ["Failed       ", " "*13, " => re-Cycle ", "tol.Overshoot"]
     print(
-        "| {0:4s}     ({1:1d}) | {2:+4d}  => {3:+4d} | {4:.1e} | {5:s} |".format(
-            stp, cycl, j0, control, fnorm, message[sts]
+        "|{0:4s}{1:1d} | {2:+4d}  => {3:+4d} | {4:.1e} ({5:2d}#) |{6:13s}|".format(
+            stp, cycl, j0, control, fnorm, niterations, message[sts]
         )
     )
 

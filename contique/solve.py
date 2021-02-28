@@ -27,11 +27,14 @@ def solve(
     maxcycles=4,
     maxiter=20,
     tol=1e-6,
+    overshoot=1.0,
 ):
     "Numeric continuation algorithm."
 
-    # init initial control component
+    # init number of unknows
     ncomp = 1 + len(x0)
+    
+    # initial control component
     if control0 == "lpf":
         j0 = ncomp
     else:
@@ -53,31 +56,45 @@ def solve(
             fun, jac, y0, j0, dymax, jacmode, jaceps, args, maxiter=1, tol=tol
         )
 
-        # Increment loop.
+        # Cycle loop.
         for cycl in 1 + np.arange(maxcycles):
+        
+            # Newton Iterations.
             res = newtonxt(
                 fun, jac, y0, j0, dymax, jacmode, jaceps, args, maxiter=maxiter, tol=tol
             )
             printinfo.cycle(
-                step, cycl, j0, res.control, res.status, np.linalg.norm(res.fun), res.niterations
+                step, cycl, j0, res.control, res.status, np.linalg.norm(res.fun), res.niterations,
+                max(abs(res.dys)) <= overshoot
             )
 
+            # Did Newton Iterations converge?
             if res.success:
-                if res.control == j0:
+            
+                # Did control component change? OR Was overshoot inside allowed range?
+                if (res.control == j0) or (max(abs(res.dys)) <= overshoot):
+                
+                    # Save results, move to next step.
+                    j0 = res.control
                     y0 = res.x
                     Res.append(res)
                     break
-                else:
+                    
+                else: # Were max. number of cycles reached?
                     if cycl == maxcycles:
+                        # Print Error and set success-flag to False.
                         printinfo.errorcontrol()
                         res.success = False
                     else:
-                        # next cycle
+                        # re-cycle Step with new control component
                         j0 = res.control
             else:
+                # break cycle loop if Newton Iterations failed.
                 break
 
+        # break step loop if Newton Iterations failed.
         if not res.success:
             printinfo.errorfinal()
             break
+            
     return Res

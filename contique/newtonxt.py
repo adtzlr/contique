@@ -72,8 +72,11 @@ def newtonxt(
     """Solve equilibrium equations starting from an initial solution
     with control component and max. allowed increase of unknowns."""
 
+    # init needle-vector and obtain ymax
     n = needle(control0, len(y0))
     ymax = y0 + np.sign(control0) * dymax
+    
+    # Newton-Rhapson solver
     res = newtonrhapson(
         fun=funxt,
         x0=y0,
@@ -82,6 +85,11 @@ def newtonxt(
         maxiter=maxiter,
         tol=tol,
     )
+    
+    # normalized dy = dy/dymax
     res.dys = (res.x - y0) / dymax
+    
+    # final control component based on dnormalized dy
     res.control = control(res.dys)
+    
     return res
