@@ -43,7 +43,7 @@ def solve(
 
     # init list of results
     Res = [newtonxt(fun, jac, y0, j0, dymax, jacmode, jaceps, args, maxiter=0, tol=tol)]
-    
+
     printinfo.header()
 
     # Step loop.
@@ -52,13 +52,15 @@ def solve(
         res = newtonxt(
             fun, jac, y0, j0, dymax, jacmode, jaceps, args, maxiter=1, tol=tol
         )
-        
+
         # Increment loop.
         for cycl in 1 + np.arange(maxcycles):
             res = newtonxt(
                 fun, jac, y0, j0, dymax, jacmode, jaceps, args, maxiter=maxiter, tol=tol
             )
-            printinfo.cycle(step, cycl, j0, res.control, res.status, np.linalg.norm(res.fun))
+            printinfo.cycle(
+                step, cycl, j0, res.control, res.status, np.linalg.norm(res.fun)
+            )
 
             if res.success:
                 if res.control == j0:

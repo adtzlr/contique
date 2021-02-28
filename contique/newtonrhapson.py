@@ -45,7 +45,7 @@ def newtonrhapson(fun, x0, jac, args=(None,), maxiter=8, tol=1e-8):
 
         # solve linear equation system
         res.x += np.linalg.solve(res.jac, -res.fun)
-        
+
         # calculate function and jacobian at updated x
         res.fun = argparser(fun)(res.x, *args)
         res.jac = argparser(jac)(res.x, *args)

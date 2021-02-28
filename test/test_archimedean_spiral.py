@@ -6,9 +6,8 @@ import contique
 
 
 def fun(x, l, a):
-    r = a*l
-    return np.array([-x[0]+r*np.cos(l),
-                     -x[1]+r*np.sin(l)])
+    r = a * l
+    return np.array([-x[0] + r * np.cos(l), -x[1] + r * np.sin(l)])
 
 
 def test_archimedian_spiral():
@@ -37,15 +36,24 @@ def test_archimedian_spiral():
     X = np.array([res.x for res in Res])
 
     plt.plot(X[:, 0], X[:, 1], "-")
-    plt.xlabel('$x_1$')
-    plt.ylabel('$x_2$')
+    plt.xlabel("$x_1$")
+    plt.ylabel("$x_2$")
     plt.xlim(-15, 15)
     plt.ylim(-15, 15)
-    plt.plot([0],[0],'C0o',lw=3)
-    plt.arrow(X[-2,0],X[-2,1],X[-1,0]-X[-2,0],X[-1,1]-X[-2,1],
-              head_width=1, head_length=2, fc='C0', ec='C0')
-    plt.gca().set_aspect('equal')
-    plt.savefig('test_archimedean_spiral.svg')
+    plt.plot([0], [0], "C0o", lw=3)
+    plt.arrow(
+        X[-2, 0],
+        X[-2, 1],
+        X[-1, 0] - X[-2, 0],
+        X[-1, 1] - X[-2, 1],
+        head_width=1,
+        head_length=2,
+        fc="C0",
+        ec="C0",
+    )
+    plt.gca().set_aspect("equal")
+    plt.savefig("test_archimedean_spiral.svg")
+
 
 if __name__ == "__main__":
     test_archimedian_spiral()

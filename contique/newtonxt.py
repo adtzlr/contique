@@ -13,7 +13,7 @@ from .newtonrhapson import newtonrhapson
 
 def funxt(y, n, ymax, fun, jac, jacmode, jaceps, args):
     """Extended equilibrium equations.
-    
+
     Parameters
     ----------
     y : array
@@ -32,14 +32,14 @@ def funxt(y, n, ymax, fun, jac, jacmode, jaceps, args):
         a small number to evaulate the jacobian (not used)
     args : tuple
         optional function arguments
-    
+
     Returns
     -------
     array
-        extended 1d-array of equilibrium equations 
+        extended 1d-array of equilibrium equations
         with control equation
     """
-    
+
     x, l = y[:-1], y[-1]
     return np.append(fun(x, l, *args), np.dot(n, (y - ymax)))
 
