@@ -9,7 +9,7 @@ import numpy as np
 
 
 def needle(j, m):
-    "Vector with needle at component j and dimension m."
+    "Return zero-vector with needle at component `j` and length `m`."
     n = np.zeros(m)
     n[abs(j) - 1] = 1
     return n

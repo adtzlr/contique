@@ -23,31 +23,32 @@ def argparser(fun):
 
 
 class ResultObject:
-    def __init__(self, fun, x0, args):
+    def __init__(self, fun, x0, jac, args):
         self.success = False
         self.message = "not started"
         self.x = x0.copy()
         self.fun = argparser(fun)(self.x, *args)
+        self.jac = argparser(jac)(self.x, *args)
         self.iteration = 0
+        self.niterations = 0
+        self.status = 0
 
 
 def newtonrhapson(fun, x0, jac, args=(None,), maxiter=8, tol=1e-8):
     "A simple n-dimensional Newton-Rhapson solver."
 
     # init result object with initial function evaluation
-    res = ResultObject(fun, x0, args)
+    res = ResultObject(fun, x0, jac, args)
 
     # iteration loop
     for res.iteration in range(maxiter):
 
-        # calculate jacobian at x0
-        res.jac = argparser(jac)(res.x, *args)
-
         # solve linear equation system
         res.x += np.linalg.solve(res.jac, -res.fun)
-
-        # calculate function at updated x
+        
+        # calculate function and jacobian at updated x
         res.fun = argparser(fun)(res.x, *args)
+        res.jac = argparser(jac)(res.x, *args)
 
         # convergence check
         if np.linalg.norm(res.fun) < tol:
@@ -56,10 +57,12 @@ def newtonrhapson(fun, x0, jac, args=(None,), maxiter=8, tol=1e-8):
                 res.message = "Solution converged in {0:2d} Iteration ".format(
                     res.iteration
                 )
+                res.status = 1
             else:
                 res.message = "Solution converged in {0:2d} Iterations".format(
                     res.iteration
                 )
+                res.status = 1
             break
 
     # check if newton process failed

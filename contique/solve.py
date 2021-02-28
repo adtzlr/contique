@@ -31,8 +31,9 @@ def solve(
     "Numeric continuation algorithm."
 
     # init initial control component
+    ncomp = 1 + len(x0)
     if control0 == "lpf":
-        j0 = 1 + len(x0)
+        j0 = ncomp
     else:
         j0 = control0
 
@@ -40,11 +41,10 @@ def solve(
     y0 = np.append(x0, lpf0)
     dymax = np.append(np.ones_like(x0) * dxmax, dlpfmax)
 
-    # init list for results
-    Res = []
-
-    # init list for results
+    # init list of results
     Res = [newtonxt(fun, jac, y0, j0, dymax, jacmode, jaceps, args, maxiter=0, tol=tol)]
+    
+    printinfo.header()
 
     # Step loop.
     for step in 1 + np.arange(maxsteps):
@@ -52,24 +52,22 @@ def solve(
         res = newtonxt(
             fun, jac, y0, j0, dymax, jacmode, jaceps, args, maxiter=1, tol=tol
         )
-        printinfo.stepheader(step)
+        
         # Increment loop.
         for cycl in 1 + np.arange(maxcycles):
             res = newtonxt(
                 fun, jac, y0, j0, dymax, jacmode, jaceps, args, maxiter=maxiter, tol=tol
             )
-            printinfo.cycle(cycl, res.message, j0, res.control)
+            printinfo.cycle(step, cycl, j0, res.control, res.status, np.linalg.norm(res.fun))
 
             if res.success:
                 if res.control == j0:
                     y0 = res.x
                     Res.append(res)
-                    printinfo.stepfinal(res.x, res.control, res.fun)
                     break
                 else:
                     if cycl == maxcycles:
-                        print("\nERROR. Control component changed in last cycle.")
-                        print("       Possible solution: Reduce stepwidth.")
+                        printinfo.errorcontrol()
                         res.success = False
                     else:
                         # next cycle
@@ -78,6 +76,6 @@ def solve(
                 break
 
         if not res.success:
-            print("\nERROR. Numerical continuation stopped.")
+            printinfo.errorfinal()
             break
     return Res

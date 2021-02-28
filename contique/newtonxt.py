@@ -12,7 +12,34 @@ from .newtonrhapson import newtonrhapson
 
 
 def funxt(y, n, ymax, fun, jac, jacmode, jaceps, args):
-    "Extended equilibrium equations."
+    """Extended equilibrium equations.
+    
+    Parameters
+    ----------
+    y : array
+        1d-array of unknowns.
+    n : array
+        pre-evaluated needle-vector.
+    ymax : array
+        1d-array with max. allowed values of unknows.
+    fun : function
+        1d-array of equilibrium equations
+    jac : function
+        jacobian of equilibrium euqations (not used)
+    jacmode : int
+        2 or 3-point evaulation of the jacobian (not used)
+    jaceps : float
+        a small number to evaulate the jacobian (not used)
+    args : tuple
+        optional function arguments
+    
+    Returns
+    -------
+    array
+        extended 1d-array of equilibrium equations 
+        with control equation
+    """
+    
     x, l = y[:-1], y[-1]
     return np.append(fun(x, l, *args), np.dot(n, (y - ymax)))
 
