@@ -47,7 +47,7 @@ Res = contique.solve(
     maxsteps=75,
     maxcycles=4,
     maxiter=20,
-    tol=1e-12,
+    tol=1e-6,
 )
 ```
 
