@@ -35,6 +35,7 @@ def test_log_spiral():
         maxcycles=4,
         maxiter=20,
         tol=1e-12,
+        overshoot=1.05
     )
 
     X = np.array([res.x for res in Res])

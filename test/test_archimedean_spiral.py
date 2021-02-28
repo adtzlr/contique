@@ -31,6 +31,7 @@ def test_archimedian_spiral():
         maxcycles=4,
         maxiter=20,
         tol=1e-6,
+        overshoot=1.05
     )
 
     X = np.array([res.x for res in Res])
