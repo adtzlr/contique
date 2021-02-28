@@ -6,23 +6,11 @@ Created on Wed Feb 17 14:31:04 2021
 """
 import numpy as np
 
-
-def argparser(fun):
-    def inner(x, *args, **kwargs):
-        if args[0] is None and kwargs is None:
-            f = fun(x)
-        if args[0] is not None and kwargs is None:
-            f = fun(x, *args)
-        if args[0] is None and kwargs is not None:
-            f = fun(x, **kwargs)
-        else:  # args[0] is not None and kwargs is not None:
-            f = fun(x, *args, **kwargs)
-        return f
-
-    return inner
+from .helpers import argparser
 
 
-class ResultObject:
+
+class NewtonResult:
     def __init__(self, fun, x0, jac, args):
         self.success = False
         self.message = "not started"
@@ -38,7 +26,7 @@ def newtonrhapson(fun, x0, jac, args=(None,), maxiter=8, tol=1e-8):
     "A simple n-dimensional Newton-Rhapson solver."
 
     # init result object with initial function evaluation
-    res = ResultObject(fun, x0, jac, args)
+    res = NewtonResult(fun, x0, jac, args)
 
     # iteration loop
     for res.iteration in range(maxiter):
@@ -53,16 +41,13 @@ def newtonrhapson(fun, x0, jac, args=(None,), maxiter=8, tol=1e-8):
         # convergence check
         if np.linalg.norm(res.fun) < tol:
             res.success = True
-            if res.iteration == 1:
-                res.message = "Solution converged in {0:2d} Iteration ".format(
+            res.status = 1
+            res.message = "Solution converged in {0:2d} Iteration".format(
                     res.iteration
                 )
-                res.status = 1
-            else:
-                res.message = "Solution converged in {0:2d} Iterations".format(
-                    res.iteration
-                )
-                res.status = 1
+            if res.iteration > 1:
+                res.message = res.message + "s"
+
             break
 
     # check if newton process failed
@@ -72,7 +57,7 @@ def newtonrhapson(fun, x0, jac, args=(None,), maxiter=8, tol=1e-8):
         else:
             res.message = "Newton-R. process failed."
 
-    # set number of iterations
+    # set number of performed iterations
     res.niterations = res.iteration + 1
 
     return res
