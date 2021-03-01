@@ -26,8 +26,8 @@ The control equation is defined as follows: First, a needle-vector with dimensio
 The numeric solution process is divided into three main parts:
 
 - **Step**
- + Cycle
-  * *Iteration* (...of a Newton-Rhapson root method)
+    + Cycle
+        * *Iteration* (...of a Newton-Rhapson root method)
   
 As the name implies, a **Step** tries to find the extended unknowns for the next step forward of the equilibrium state. For each Cycle, the initial control component has to be evaluated first (see comment below). The additional control equation is evaluated with this initial control component. The generated extended equilibrium equations in terms of the extended unknows are now solved with the help of a root method (Newton-Rhapson *Iterations*). The solution of the root method `dy` is further normalized as `dy/dymax` and the final control component is evaluated as `j = |j| sign((dy/dymax)[|j|])` with `|j| = argmax(|dy/dymax|)`. If the control component changed, another Cycle is performed with the initial control component being now the final control component of the last cycle. This Cycle-loop is repeated until the control component does not change anymore.
 
