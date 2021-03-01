@@ -43,6 +43,7 @@ def solve(
     # init y=(x,l)-combined quantities
     y0 = np.append(x0, lpf0)
     dymax = np.append(np.ones_like(x0) * dxmax, dlpfmax)
+    dymax0 = dymax.copy()
 
     # init list of results
     Res = [newtonxt(fun, jac, y0, j0, dymax, jacmode, jaceps, args, maxiter=0, tol=tol)]
@@ -97,10 +98,25 @@ def solve(
             else:
                 # break cycle loop if Newton Iterations failed.
                 break
+        # TODO stepcontrol implementation        
+        #dymaxn = dymax.copy()
+        #dymax  = stepcontrol(dymax0,dymaxn,res.success,res.niterations)
 
         # break step loop if Newton Iterations failed.
-        if not res.success:
+        if not res.success:# and dymaxn[0] == dymax[0]:
             printinfo.errorfinal()
             break
 
     return Res
+    
+
+def stepcontrol(x0,xn,success,niter,increase=1,reduce=1/4,k=3,
+high=10,low=1e-4):
+    "Control the stepwidth."
+    if success:
+        x = xn * (1 + (increase/float(niter))**k)
+    
+    else:
+        x = xn * reduce
+    
+    return np.maximum( np.minimum(x/x0,high), low) * x0
