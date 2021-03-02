@@ -7,7 +7,6 @@ Created on Wed Feb 17 14:31:04 2021
 
 import numpy as np
 
-from .jacobian import jacobian
 from .newtonxt import newtonxt
 from . import printinfo
 
@@ -28,11 +27,22 @@ def solve(
     maxiter=20,
     tol=1e-6,
     overshoot=1.0,
+    rebalance=False,
+    increase=0.5,
+    decrease=4.0,
+    high=10,
+    low=1e-6,
+    minlastfailed=3,
 ):
     "Numeric continuation algorithm."
 
     # init number of unknows
     ncomp = 1 + len(x0)
+
+    # init rebalance and lastfailed
+    # (not used if not rebalance)
+    rebalanced = False
+    lastfailed = 0
 
     # initial control component
     if control0 == "lpf":
@@ -98,25 +108,63 @@ def solve(
             else:
                 # break cycle loop if Newton Iterations failed.
                 break
-        # TODO stepcontrol implementation        
-        #dymaxn = dymax.copy()
-        #dymax  = stepcontrol(dymax0,dymaxn,res.success,res.niterations)
+
+        # Rebalance max. incremental unknowns
+        # ---------------------------------------------------------------------
+        if rebalance:
+            dymaxn = dymax.copy()
+            dymax, rebalanced, lastfailed = adjust(
+                dymax0,
+                dymaxn,
+                success=res.success,
+                n=res.niterations,
+                lastfailed=lastfailed,
+                increase=increase,
+                decrease=decrease,
+                high=high,
+                low=low,
+                minlastfailed=minlastfailed,
+                nref=8,
+            )
+        # ---------------------------------------------------------------------
 
         # break step loop if Newton Iterations failed.
-        if not res.success:# and dymaxn[0] == dymax[0]:
+        if not res.success and not rebalanced:
             printinfo.errorfinal()
             break
 
     return Res
-    
 
-def stepcontrol(x0,xn,success,niter,increase=1,reduce=1/4,k=3,
-high=10,low=1e-4):
-    "Control the stepwidth."
+
+def adjust(
+    x0,
+    xn,
+    success,
+    n,
+    lastfailed,
+    increase=0.5,
+    decrease=4.0,
+    high=10,
+    low=1e-6,
+    minlastfailed=3,
+    nref=8,
+):
+    "Adjust (rebalance) the stepwidth. **Warning**: Experimental feature."
+
+    rebalanced = True
     if success:
-        x = xn * (1 + (increase/float(niter))**k)
-    
-    else:
-        x = xn * reduce
-    
-    return np.maximum( np.minimum(x/x0,high), low) * x0
+        lastfailed += 1
+        if lastfailed >= minlastfailed:
+            x = xn * (1 + (nref - min(n, nref)) / nref * increase)
+        else:  # lastfailed < minlastfailed
+            x = xn
+
+    elif not success:
+        x = xn / decrease
+        lastfailed = 0
+
+    y = np.maximum(np.minimum(x / x0, high), low) * x0
+    if y[0] == xn[0]:
+        rebalanced = False
+
+    return y, rebalanced, lastfailed
