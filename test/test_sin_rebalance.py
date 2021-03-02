@@ -9,7 +9,7 @@ def fun(x, l, a, b):
     return np.array([-(a+b*x[0]) * np.sin(x[0]) + l])
 
 
-def test_sin():
+def test_sin_rebalance():
 
     # initial solution
     x0 = np.zeros(1)
@@ -25,14 +25,16 @@ def test_sin():
         x0=x0,
         args=(a, b),
         lpf0=lpf0,
-        dxmax=0.1,
-        dlpfmax=0.1,
+        dxmax=0.2,
+        dlpfmax=0.2,
         maxsteps=500,
         maxcycles=4,
-        maxiter=20,
+        maxiter=8,
         tol=1e-10,
-        overshoot=1.05,
+        overshoot=1.0,
         rebalance=True,
+        increase=0.5,
+        decrease=2,
         high=10
     )
 
@@ -53,8 +55,8 @@ def test_sin():
         ec="C0",
     )
     plt.gca().set_aspect("equal")
-    plt.savefig("test_sin.svg")
+    plt.savefig("test_sin_rebalance.svg")
 
 
 if __name__ == "__main__":
-    test_sin()
+    test_sin_rebalance()
