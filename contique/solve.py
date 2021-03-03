@@ -126,7 +126,7 @@ def solve(
                 break
 
         # Rebalance max. incremental unknowns
-        # ---------------------------------------------------------------------
+        # --------------------------------------------------------------------
         if rebalance:
             dymaxn = dymax.copy()
             dymax, rebalanced, lastfailed = adjust(
@@ -142,7 +142,7 @@ def solve(
                 minlastfailed=minlastfailed,
                 nref=8,
             )
-        # ---------------------------------------------------------------------
+        # --------------------------------------------------------------------
 
         # break step loop if Newton Iterations failed.
         if not res.success and not rebalanced:
