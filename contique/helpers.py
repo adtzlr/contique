@@ -2,9 +2,9 @@
 """
 Created on Wed Feb 17 14:31:04 2021
 
-@author: Andreas
+@author: adtzlr
 
-Contique - Numeric Continuation of equilibrium equations
+Contique - Numeric continuation of equilibrium equations
 Copyright (C) 2021 Andreas Dutzler
 
 This program is free software: you can redistribute it and/or modify
