@@ -24,7 +24,7 @@ import numpy as np
 
 from .jacobian import jacobian
 from .helpers import needle, control
-from .newtonrhapson import newtonrhapson
+from .newton import newtonrhapson
 
 
 def funxt(y, n, ymax, fun, jac, jacmode, jaceps, args):
