@@ -44,17 +44,18 @@ def jacobian(fun, argnum=0, h=None, mode=3):
         Function for the calculation of the jacobian of function `fun`
         w.r.t. given `argnum`.
     """
+    
+    # set optimal step-width
+    if h is None:
+        h = ((np.finfo(float).eps)) ** (1 / mode)
 
     def jacwrapper(*args, **kwargs):
         """Calculates the jacobian as 2- or 3-point finite-differences
         approximation w.r.t. a given argnum and h."""
 
-        # set optimal step-width
-        if h is None:
-            h = ((np.finfo(float).eps)) ** (1 / mode)
-
         # pre-evaluate f0 = f(x0) if 2-point scheme is used
         f0 = fun(*args, **kwargs)
+        print(h)
 
         # check if arg is an array
         if isinstance(args[argnum], np.ndarray):
