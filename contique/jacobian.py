@@ -55,7 +55,6 @@ def jacobian(fun, argnum=0, h=None, mode=3):
 
         # pre-evaluate f0 = f(x0) if 2-point scheme is used
         f0 = fun(*args, **kwargs)
-        print(h)
 
         # check if arg is an array
         if isinstance(args[argnum], np.ndarray):
