@@ -45,7 +45,7 @@ def solve(
     overshoot=1.0,
     rebalance=False,
     increase=0.5,
-    decrease=4.0,
+    decrease=2.0,
     high=10,
     low=1e-6,
     minlastfailed=3,
