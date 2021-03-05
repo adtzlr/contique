@@ -44,7 +44,7 @@ def jacobian(fun, argnum=0, h=None, mode=3):
         Function for the calculation of the jacobian of function `fun`
         w.r.t. given `argnum`.
     """
-    
+
     # set optimal step-width
     if h is None:
         h = ((np.finfo(float).eps)) ** (1 / mode)
