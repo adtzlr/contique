@@ -60,16 +60,43 @@ def funxt(y, n, ymax, fun, jac, jacmode, jaceps, args):
     return np.append(fun(x, l, *args), np.dot(n, (y - ymax)))
 
 
-def jacxt(y, n, ymax, fun, jac, jacmode, jaceps, args):
-    "Jacobian of extended equilibrium equations."
-    x, l = y[:-1], y[-1]
+def jacxt(y, n, ymax, fun, jac=None, jacmode=3, jaceps=None, args=(None,)):
+    """Jacobian of extended equilibrium equations.
+
+    Parameters
+    ----------
+    y : ndarray
+        1d-array of extended unknows
+    n : ndarray
+        1d-array with pre-evaluated needle-vector
+    ymax : ndarray
+        1d-array with max. allowed incremental increase values of y
+    fun : function
+        function in terms of unknows x and optional args which returns the
+        equilibrium equations.
+    jac : function, optional
+        jacobian of fun w.r.t. the extended unknows y
+    jacmode : int, optional
+        forward (2) or central (3) finite-differences approx. of the jacobian
+    jaceps : float, optional
+        user-specified stepwidth (if None, this defaults to eps^(1/mode))
+    args : tuple, optional
+        Optional tuple of arguments which are passed to the function. Eeven if only
+        one argument is passed, it has to be encapsulated in a tuple (default is (None,)).
+
+    Returns
+    -------
+        ndarray
+        jacobian of fun w.r.t. y (contains both derivatives of x and lpf) as 2d-array
+    """
+    x, lpf = y[:-1], y[-1]
     if jac is None:
         dfundx = jacobian(fun, argnum=0, mode=jacmode, h=jaceps)
         dfundl = jacobian(fun, argnum=1, mode=jacmode, h=jaceps)
     else:
         dfundx, dfundl = jac
     return np.vstack(
-        (np.hstack((dfundx(x, l, *args), dfundl(x, l, *args).reshape(-1, 1))), n)
+        (np.hstack((dfundx(x, lpf, *args), dfundl(x, lpf, *args).reshape(-1, 1))), n)
     )
 
 
@@ -86,7 +113,38 @@ def newtonxt(
     tol=1e-8,
 ):
     """Solve equilibrium equations starting from an initial solution
-    with control component and max. allowed increase of unknowns."""
+    with control component and max. allowed increase of unknowns.
+
+    Parameters
+    ----------
+    fun : function
+        function in terms of unknows x and optional args which returns the
+        equilibrium equations.
+    jac : function, optional
+        jacobian of fun w.r.t. the extended unknows y
+    y0 : ndarray
+        1d-array of initial extended unknows
+    control0 : int, optional
+        initial signed control component ( 1-indexed )
+    dxmax : float, optional
+        max. allowed absolute incremental increase of extended unknowns per step
+    jacmode : int, optional
+        forward (2) or central (3) finite-differences approx. of the jacobian
+    jaceps : float, optional
+        user-specified stepwidth (if None, this defaults to eps^(1/mode))
+    args : tuple, optional
+        Optional tuple of arguments which are passed to the function. Eeven if only
+        one argument is passed, it has to be encapsulated in a tuple (default is (None,)).
+    maxiter : int, optional
+        max. number of Newton-iterations per cycle
+    tol : float, optional
+        tolerated residual of the norm of the equilibrium equation (default is 1e-8)
+
+    Returns
+    -------
+    res : NewtonResult
+        Instance of NewtonResult with res.x being the final extended unknowns
+    """
 
     # init needle-vector and obtain ymax
     n = needle(control0, len(y0))

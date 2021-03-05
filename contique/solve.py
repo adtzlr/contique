@@ -71,7 +71,7 @@ def solve(
     dlpfmax : float, optional
         max. allowed absolute incremental increase of lpf per step
     control0 : int, optional
-        initial control component ( 1-indexed
+        initial signed control component ( 1-indexed )
     jacmode : int, optional
         forward (2) or central (3) finite-differences approx. of the jacobian
     jaceps : float, optional
