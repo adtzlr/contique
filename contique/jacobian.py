@@ -48,10 +48,10 @@ def jacobian(fun, argnum=0, h=None, mode=3):
     def jacwrapper(*args, **kwargs):
         """Calculates the jacobian as 2- or 3-point finite-differences
         approximation w.r.t. a given argnum and h."""
-        
+
         # set optimal step-width
         if h is None:
-            h = ((np.finfo(float).eps))**(1/mode)
+            h = ((np.finfo(float).eps)) ** (1 / mode)
 
         # pre-evaluate f0 = f(x0) if 2-point scheme is used
         f0 = fun(*args, **kwargs)
