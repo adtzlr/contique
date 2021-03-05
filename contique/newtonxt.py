@@ -80,7 +80,7 @@ def newtonxt(
     control0,
     dymax,
     jacmode=3,
-    jaceps=1e-6,
+    jaceps=None,
     args=(None,),
     maxiter=20,
     tol=1e-8,
