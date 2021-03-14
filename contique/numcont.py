@@ -23,6 +23,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import numpy as np
 
+from .helpers import argparser2
 from .newtonxt import newtonxt
 from . import printinfo
 
@@ -105,6 +106,9 @@ def solve(
         List of NewtonResults (with res.x being the final unknowns per step)
 
     """
+    
+    # allow passing empty *args to fun(x, lpf)
+    fun = argparser2(fun)
 
     # init number of unknows
     ncomp = 1 + len(x0)
