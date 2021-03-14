@@ -1,6 +1,6 @@
 from .__about__ import __version__
 from .jacobian import jacobian
-from .solve import solve
+from .numcont import solve
 
 __all__ = [
     "__version__",
