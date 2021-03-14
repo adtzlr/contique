@@ -91,7 +91,7 @@ def argparser(fun):
         "Pass \*args and \*\*kwargs to a function if they are not None."
         no_args = (len(args) == 1 and args[0] is None) or not bool(args)
         no_kwargs = not bool(kwargs)
-        
+
         if no_args and no_kwargs:
             f = fun(x)
         elif not no_args and no_kwargs:
@@ -104,6 +104,7 @@ def argparser(fun):
 
     return inner
 
+
 def argparser2(fun):
     """Function decorator for the handling of function arguments
     with 2 primary arguments followed by other args."""
@@ -112,7 +113,7 @@ def argparser2(fun):
         "Pass \*args and \*\*kwargs to a function if they are not None."
         no_args = (len(args) == 1 and args[0] is None) or not bool(args)
         no_kwargs = not bool(kwargs)
-        
+
         if no_args and no_kwargs:
             f = fun(x, lpf)
         elif not no_args and no_kwargs:

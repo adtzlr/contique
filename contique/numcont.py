@@ -106,7 +106,7 @@ def solve(
         List of NewtonResults (with res.x being the final unknowns per step)
 
     """
-    
+
     # allow passing empty *args to fun(x, lpf)
     fun = argparser2(fun)
 
