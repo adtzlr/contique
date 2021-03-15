@@ -34,6 +34,7 @@ def solve(
     lpf0,
     jac=None,
     args=(None,),
+    statevars0=np.zeros(0),
     dxmax=0.05,
     dlpfmax=0.05,
     control0="lpf",
@@ -130,15 +131,39 @@ def solve(
     dymax0 = dymax.copy()
 
     # init list of results
-    Res = [newtonxt(fun, jac, y0, j0, dymax, jacmode, jaceps, args, maxiter=0, tol=tol)]
+    Res = [
+        newtonxt(
+            fun,
+            jac,
+            y0,
+            j0,
+            dymax,
+            jacmode,
+            jaceps,
+            args,
+            statevars0,
+            maxiter=0,
+            tol=tol,
+        )
+    ]
 
     printinfo.header()
 
     # Step loop.
     for step in 1 + np.arange(maxsteps):
-        ## pre-identification of control component
+        # pre-identification of control component
         res = newtonxt(
-            fun, jac, y0, j0, dymax, jacmode, jaceps, args, maxiter=1, tol=tol
+            fun,
+            jac,
+            y0,
+            j0,
+            dymax,
+            jacmode,
+            jaceps,
+            args,
+            statevars0,
+            maxiter=1,
+            tol=tol,
         )
 
         # Cycle loop.
@@ -146,7 +171,17 @@ def solve(
 
             # Newton Iterations.
             res = newtonxt(
-                fun, jac, y0, j0, dymax, jacmode, jaceps, args, maxiter=maxiter, tol=tol
+                fun,
+                jac,
+                y0,
+                j0,
+                dymax,
+                jacmode,
+                jaceps,
+                args,
+                statevars0,
+                maxiter=maxiter,
+                tol=tol,
             )
             printinfo.cycle(
                 step,
@@ -168,6 +203,7 @@ def solve(
                     # Save results, move to next step.
                     j0 = res.control
                     y0 = res.x
+                    statevars0 = res.statevars.copy()
                     Res.append(res)
                     break
 

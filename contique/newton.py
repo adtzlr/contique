@@ -49,7 +49,7 @@ class NewtonResult:
 
     """
 
-    def __init__(self, fun, x0, jac, args):
+    def __init__(self, fun, x0, jac, args, statevars):
         """Initialize an Instance of a NewtonResult.
 
         Parameters
@@ -70,11 +70,14 @@ class NewtonResult:
         self.status = 0
         self.niterations = 0
         self.x = x0.copy()
-        self.fun = argparser(fun)(self.x, *args)
-        self.jac = argparser(jac)(self.x, *args)
+        self.statevars0 = statevars
+        self.fun, self.statevars = argparser(fun)(self.x, *args, statevars=statevars)
+        self.jac = argparser(jac)(self.x, *args, statevars)
 
 
-def newtonrhapson(fun, x0, jac, args=(None,), maxiter=8, tol=1e-8):
+def newtonrhapson(
+    fun, x0, jac, args=(None,), statevars=np.zeros(0), maxiter=8, tol=1e-8
+):
     """A simple n-dimensional Newton-Rhapson solver.
 
     Parameters
@@ -102,7 +105,7 @@ def newtonrhapson(fun, x0, jac, args=(None,), maxiter=8, tol=1e-8):
     """
 
     # init result object with initial function evaluation
-    res = NewtonResult(fun, x0, jac, args)
+    res = NewtonResult(fun, x0, jac, args, statevars)
 
     # iteration loop
     for res.niterations in range(1, 1 + maxiter):
@@ -111,8 +114,8 @@ def newtonrhapson(fun, x0, jac, args=(None,), maxiter=8, tol=1e-8):
         res.x += np.linalg.solve(res.jac, -res.fun)
 
         # calculate function and jacobian at updated x
-        res.fun = argparser(fun)(res.x, *args)
-        res.jac = argparser(jac)(res.x, *args)
+        res.fun, res.statevars = argparser(fun)(res.x, *args, statevars=res.statevars)
+        res.jac = argparser(jac)(res.x, *args, statevars=res.statevars)
 
         # convergence check
         if np.linalg.norm(res.fun) < tol:

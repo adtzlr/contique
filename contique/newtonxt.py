@@ -27,7 +27,7 @@ from .helpers import needle, control
 from .newton import newtonrhapson
 
 
-def funxt(y, n, ymax, fun, jac, jacmode, jaceps, args):
+def funxt(y, n, ymax, fun, jac, jacmode, jaceps, args, statevars):
     """Extended equilibrium equations.
 
     Parameters
@@ -57,7 +57,8 @@ def funxt(y, n, ymax, fun, jac, jacmode, jaceps, args):
     """
 
     x, l = y[:-1], y[-1]
-    return np.append(fun(x, l, *args), np.dot(n, (y - ymax)))
+    f, statevars = fun(x, l, *args, statevars=statevars)
+    return np.append(f, np.dot(n, (y - ymax))), statevars
 
 
 def jacxt(y, n, ymax, fun, jac=None, jacmode=3, jaceps=None, args=(None,)):
@@ -96,7 +97,15 @@ def jacxt(y, n, ymax, fun, jac=None, jacmode=3, jaceps=None, args=(None,)):
     else:
         dfundx, dfundl = jac
     return np.vstack(
-        (np.hstack((dfundx(x, lpf, *args), dfundl(x, lpf, *args).reshape(-1, 1))), n)
+        (
+            np.hstack(
+                (
+                    dfundx(x, lpf, *args, statevars=statevars),
+                    dfundl(x, lpf, *args, statevars=statevars).reshape(-1, 1),
+                )
+            ),
+            n,
+        )
     )
 
 
@@ -109,6 +118,7 @@ def newtonxt(
     jacmode=3,
     jaceps=None,
     args=(None,),
+    statevars=np.zeros(0),
     maxiter=20,
     tol=1e-8,
 ):
@@ -156,6 +166,7 @@ def newtonxt(
         x0=y0,
         jac=jacxt,
         args=(n, ymax, fun, jac, jacmode, jaceps, args),
+        statevars=statevars,
         maxiter=maxiter,
         tol=tol,
     )

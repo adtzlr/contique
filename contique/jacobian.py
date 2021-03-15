@@ -54,7 +54,7 @@ def jacobian(fun, argnum=0, h=None, mode=3):
         approximation w.r.t. a given argnum and h."""
 
         # pre-evaluate f0 = f(x0) if 2-point scheme is used
-        f0 = fun(*args, **kwargs)
+        f0, _ = fun(*args, **kwargs)
 
         # check if arg is an array
         if isinstance(args[argnum], np.ndarray):
@@ -70,13 +70,13 @@ def jacobian(fun, argnum=0, h=None, mode=3):
                 fwdargs = copy.deepcopy(args)
                 fwdargs[argnum].ravel()[j] = fwdargs[argnum].ravel()[j] + h
 
-                f = fun(*fwdargs, **kwargs)
+                f, _ = fun(*fwdargs, **kwargs)
 
                 # re-define f0
                 if mode == 3:
                     rvsargs = copy.deepcopy(args)
                     rvsargs[argnum].ravel()[j] = rvsargs[argnum].ravel()[j] - h
-                    f0 = fun(*rvsargs, **kwargs)
+                    f0, _ = fun(*rvsargs, **kwargs)
 
                 jac[:, j] = (f - f0).ravel() / h / (mode - 1)
 
@@ -88,13 +88,13 @@ def jacobian(fun, argnum=0, h=None, mode=3):
             fwdargs = list(copy.deepcopy(args))
             fwdargs[argnum] = fwdargs[argnum] + h
 
-            f = fun(*fwdargs, **kwargs)
+            f, _ = fun(*fwdargs, **kwargs)
 
             # re-define f0
             if mode == 3:
                 rvsargs = list(copy.deepcopy(args))
                 rvsargs[argnum] = rvsargs[argnum] - h
-                f0 = fun(*rvsargs, **kwargs)
+                f0, _ = fun(*rvsargs, **kwargs)
 
             # calculate jacobian
             jac = (f - f0) / h / (mode - 1)
