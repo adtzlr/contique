@@ -6,7 +6,7 @@ import contique
 
 
 def fun(x, l, a, b):
-    return np.array([-(a+b*x[0]) * np.sin(x[0]) + l])
+    return np.array([-(a + b * x[0]) * np.sin(x[0]) + l])
 
 
 def test_sin_rebalance():
@@ -35,7 +35,7 @@ def test_sin_rebalance():
         rebalance=True,
         increase=0.5,
         decrease=2,
-        high=10
+        high=10,
     )
 
     X = np.array([res.x for res in Res])

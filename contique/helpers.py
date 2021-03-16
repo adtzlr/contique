@@ -87,7 +87,7 @@ def control(x):
 def argparser(fun):
     "Function decorator for the handling of function arguments."
 
-    def inner(x, *args, statevars, **kwargs):
+    def inner(x, statevars, *args, **kwargs):
         "Pass \*args and \*\*kwargs to a function if they are not None."
         no_args = (len(args) == 1 and args[0] is None) or not bool(args)
         no_kwargs = not bool(kwargs)
@@ -109,7 +109,7 @@ def argparser2(fun):
     """Function decorator for the handling of function arguments
     with 2 primary arguments followed by other args."""
 
-    def inner2(x, lpf, *args, statevars, **kwargs):
+    def inner2(x, lpf, statevars, *args, **kwargs):
         "Pass \*args and \*\*kwargs to a function if they are not None."
         no_args = (len(args) == 1 and args[0] is None) or not bool(args)
         no_kwargs = not bool(kwargs)
@@ -117,11 +117,11 @@ def argparser2(fun):
         if no_args and no_kwargs:
             f = fun(x, lpf, statevars)
         elif not no_args and no_kwargs:
-            f = fun(x, lpf, *args, statevars)
+            f = fun(x, lpf, statevars, *args)
         elif no_args and not no_kwargs:
             f = fun(x, lpf, statevars, **kwargs)
         else:
-            f = fun(x, lpf, *args, statevars, **kwargs)
+            f = fun(x, lpf, statevars, *args, **kwargs)
         return f
 
     return inner2

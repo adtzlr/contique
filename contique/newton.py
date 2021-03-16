@@ -71,8 +71,8 @@ class NewtonResult:
         self.niterations = 0
         self.x = x0.copy()
         self.statevars0 = statevars
-        self.fun, self.statevars = argparser(fun)(self.x, *args, statevars=statevars)
-        self.jac = argparser(jac)(self.x, *args, statevars)
+        self.fun, self.statevars = fun(self.x, statevars, *args)
+        self.jac = argparser(jac)(self.x, statevars, *args)
 
 
 def newtonrhapson(
@@ -114,8 +114,8 @@ def newtonrhapson(
         res.x += np.linalg.solve(res.jac, -res.fun)
 
         # calculate function and jacobian at updated x
-        res.fun, res.statevars = argparser(fun)(res.x, *args, statevars=res.statevars)
-        res.jac = argparser(jac)(res.x, *args, statevars=res.statevars)
+        res.fun, res.statevars = argparser(fun)(res.x, res.statevars, *args)
+        res.jac = argparser(jac)(res.x, statevars, *args)
 
         # convergence check
         if np.linalg.norm(res.fun) < tol:

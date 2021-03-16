@@ -5,11 +5,11 @@ import pytest
 import contique
 
 
-def fun(x, lpf, a, L, EA, statevars):
-    WL = -x[0]/L
-    lL = np.sqrt(1 - 2*np.sin(a)*WL + WL**2)
+def fun(x, lpf, statevars, a, L, EA):
+    WL = -x[0] / L
+    lL = np.sqrt(1 - 2 * np.sin(a) * WL + WL ** 2)
     N = EA * (lL - 1)
-    return np.array([2*N*(np.sin(a)-WL) + lpf]), statevars
+    return np.array([2 * N * (np.sin(a) - WL) + lpf]), statevars
 
 
 def test_twotruss():
@@ -17,7 +17,7 @@ def test_twotruss():
     # initial solution
     x0 = np.zeros(1)
     lpf0 = 0.0
-    
+
     # args
     L = np.sqrt(2)
     a = np.deg2rad(45)
@@ -28,12 +28,12 @@ def test_twotruss():
         fun=fun,
         x0=x0,
         lpf0=lpf0,
-        args=(a,L,EA),
-        statevars0=np.zeros(1)
+        args=(a, L, EA),
+        statevars0=np.zeros(10),
     )
 
     X = np.array([res.x for res in Res])
-    print(X[-2:,:])
+    print(X[-2:, :])
 
     plt.plot(X[:, 0], X[:, 1], ".-")
     plt.xlabel("$W$")

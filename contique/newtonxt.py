@@ -57,11 +57,21 @@ def funxt(y, n, ymax, fun, jac, jacmode, jaceps, args, statevars):
     """
 
     x, l = y[:-1], y[-1]
-    f, statevars = fun(x, l, *args, statevars=statevars)
+    f, statevars = fun(x, l, statevars, *args)
     return np.append(f, np.dot(n, (y - ymax))), statevars
 
 
-def jacxt(y, n, ymax, fun, jac=None, jacmode=3, jaceps=None, args=(None,)):
+def jacxt(
+    y,
+    n,
+    ymax,
+    fun,
+    jac=None,
+    jacmode=3,
+    jaceps=None,
+    args=(None,),
+    statevars=np.zeros(0),
+):
     """Jacobian of extended equilibrium equations.
 
     Parameters
@@ -100,8 +110,8 @@ def jacxt(y, n, ymax, fun, jac=None, jacmode=3, jaceps=None, args=(None,)):
         (
             np.hstack(
                 (
-                    dfundx(x, lpf, *args, statevars=statevars),
-                    dfundl(x, lpf, *args, statevars=statevars).reshape(-1, 1),
+                    dfundx(x, lpf, statevars, *args),
+                    dfundl(x, lpf, statevars, *args).reshape(-1, 1),
                 )
             ),
             n,
@@ -161,6 +171,7 @@ def newtonxt(
     ymax = y0 + np.sign(control0) * dymax
 
     # Newton-Rhapson solver
+    print(funxt)
     res = newtonrhapson(
         fun=funxt,
         x0=y0,
