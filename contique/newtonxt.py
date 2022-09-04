@@ -21,6 +21,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
 import numpy as np
+from scipy import sparse
 
 from .jacobian import jacobian
 from .helpers import needle, control
@@ -57,6 +58,7 @@ def funxt(y, n, ymax, fun, jac, jacmode, jaceps, args):
     """
 
     x, l = y[:-1], y[-1]
+
     return np.append(fun(x, l, *args), np.dot(n, (y - ymax)))
 
 
@@ -90,14 +92,32 @@ def jacxt(y, n, ymax, fun, jac=None, jacmode=3, jaceps=None, args=(None,)):
         jacobian of fun w.r.t. y (contains both derivatives of x and lpf) as 2d-array
     """
     x, lpf = y[:-1], y[-1]
+    
     if jac is None:
         dfundx = jacobian(fun, argnum=0, mode=jacmode, h=jaceps)
         dfundl = jacobian(fun, argnum=1, mode=jacmode, h=jaceps)
     else:
         dfundx, dfundl = jac
-    return np.vstack(
-        (np.hstack((dfundx(x, lpf, *args), dfundl(x, lpf, *args).reshape(-1, 1))), n)
-    )
+        
+    dfdx = dfundx(x, lpf, *args)
+    dfdl = dfundl(x, lpf, *args).reshape(-1, 1)
+    
+    if sparse.issparse(dfdx):
+        hstack = sparse.hstack
+        vstack = sparse.vstack
+        array = sparse.csr_matrix
+    else:
+        hstack = np.hstack
+        vstack = np.vstack
+        array = np.array
+    
+    dfdy = hstack([array(dfdx), array(dfdl)])
+    dgdy = vstack([dfdy, array(n)])
+    
+    if sparse.issparse(dfdx):
+        dgdy = dgdy.tocsr()
+        
+    return dgdy
 
 
 def newtonxt(
@@ -111,6 +131,7 @@ def newtonxt(
     args=(None,),
     maxiter=20,
     tol=1e-8,
+    solve=None,
 ):
     """Solve equilibrium equations starting from an initial solution
     with control component and max. allowed increase of unknowns.
@@ -124,8 +145,8 @@ def newtonxt(
         jacobian of fun w.r.t. the extended unknows y
     y0 : ndarray
         1d-array of initial extended unknows
-    control0 : int, optional
-        initial signed control component ( 1-indexed )
+    control0 : tuple of int, optional
+        initial control component and sign
     dxmax : float, optional
         max. allowed absolute incremental increase of extended unknowns per step
     jacmode : int, optional
@@ -139,6 +160,8 @@ def newtonxt(
         max. number of Newton-iterations per cycle
     tol : float, optional
         tolerated residual of the norm of the equilibrium equation (default is 1e-8)
+    solve: callable, optional
+        A solver.
 
     Returns
     -------
@@ -147,8 +170,9 @@ def newtonxt(
     """
 
     # init needle-vector and obtain ymax
-    n = needle(control0, len(y0))
-    ymax = y0 + np.sign(control0) * dymax
+    component0, sign0 = control0
+    n = needle(component0, len(y0))
+    ymax = y0 + sign0 * dymax
 
     # Newton-Rhapson solver
     res = newtonrhapson(
@@ -158,12 +182,13 @@ def newtonxt(
         args=(n, ymax, fun, jac, jacmode, jaceps, args),
         maxiter=maxiter,
         tol=tol,
+        solve=solve,
     )
 
     # normalized dy = dy/dymax
     res.dys = (res.x - y0) / dymax
 
-    # final control component based on dnormalized dy
+    # final control component based on normalized dy
     res.control = control(res.dys)
 
     return res
