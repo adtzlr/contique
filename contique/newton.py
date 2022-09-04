@@ -21,6 +21,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
 import numpy as np
+from scipy import sparse
 
 from .helpers import argparser
 
@@ -58,7 +59,7 @@ class NewtonResult:
             function returning the equilibrium equations
         x0 : ndarray
             1d-array containing the initial unknows
-        jac : function
+        jac : function, optional
             function returning the jacobian of the equilibrium equations
         args : tuple, optional
             Optional tuple of arguments which are passed to the function. Eeven if only
@@ -71,10 +72,12 @@ class NewtonResult:
         self.niterations = 0
         self.x = x0.copy()
         self.fun = argparser(fun)(self.x, *args)
-        self.jac = argparser(jac)(self.x, *args)
+        
+        if jac is not None:
+            self.jac = argparser(jac)(self.x, *args)
 
 
-def newtonrhapson(fun, x0, jac, args=(None,), maxiter=8, tol=1e-8):
+def newtonrhapson(fun, x0, jac, args=(None,), maxiter=8, tol=1e-8, solve=None):
     """A simple n-dimensional Newton-Rhapson solver.
 
     Parameters
@@ -102,18 +105,27 @@ def newtonrhapson(fun, x0, jac, args=(None,), maxiter=8, tol=1e-8):
     """
 
     # init result object with initial function evaluation
-    res = NewtonResult(fun, x0, jac, args)
+    res = NewtonResult(fun, x0, None, args)
 
     # iteration loop
     for res.niterations in range(1, 1 + maxiter):
+        
+        # calculate jacobian at x
+        res.jac = argparser(jac)(res.x, *args)
+        
+        # set solver according to dense or sparse jacobian
+        if solve is None:
+            if sparse.issparse(res.jac):
+                solve = sparse.linalg.spsolve
+            else:
+                solve = np.linalg.solve
 
         # solve linear equation system
-        res.x += np.linalg.solve(res.jac, -res.fun)
+        res.x += solve(res.jac, -res.fun)
 
-        # calculate function and jacobian at updated x
+        # calculate function at updated x
         res.fun = argparser(fun)(res.x, *args)
-        res.jac = argparser(jac)(res.x, *args)
-
+        
         # convergence check
         if np.linalg.norm(res.fun) < tol:
             res.success = True
