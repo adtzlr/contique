@@ -72,7 +72,7 @@ class NewtonResult:
         self.niterations = 0
         self.x = x0.copy()
         self.fun = argparser(fun)(self.x, *args)
-        
+
         if jac is not None:
             self.jac = argparser(jac)(self.x, *args)
 
@@ -109,10 +109,10 @@ def newtonrhapson(fun, x0, jac, args=(None,), maxiter=8, tol=1e-8, solve=None):
 
     # iteration loop
     for res.niterations in range(1, 1 + maxiter):
-        
+
         # calculate jacobian at x
         res.jac = argparser(jac)(res.x, *args)
-        
+
         # set solver according to dense or sparse jacobian
         if solve is None:
             if sparse.issparse(res.jac):
@@ -125,7 +125,7 @@ def newtonrhapson(fun, x0, jac, args=(None,), maxiter=8, tol=1e-8, solve=None):
 
         # calculate function at updated x
         res.fun = argparser(fun)(res.x, *args)
-        
+
         # convergence check
         if np.linalg.norm(res.fun) < tol:
             res.success = True

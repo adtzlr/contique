@@ -47,7 +47,15 @@ def cycle(step, cycl, control0, control, status, fnorm, niterations, overshootco
     sign = f"{control[1]:+d}"[0]
     print(
         "|{0:4s}{1:1d} |{2:6d}{3:s}  =>{4:6d}{5:s} | {6:.1e} ({7:2d}#) |{8:13s}|".format(
-            stp, cycl, control0[0], sign0, control[0], sign, fnorm, niterations, message[sts]
+            stp,
+            cycl,
+            control0[0],
+            sign0,
+            control[0],
+            sign,
+            fnorm,
+            niterations,
+            message[sts],
         )
     )
 

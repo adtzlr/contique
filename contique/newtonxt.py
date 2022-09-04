@@ -92,16 +92,16 @@ def jacxt(y, n, ymax, fun, jac=None, jacmode=3, jaceps=None, args=(None,)):
         jacobian of fun w.r.t. y (contains both derivatives of x and lpf) as 2d-array
     """
     x, lpf = y[:-1], y[-1]
-    
+
     if jac is None:
         dfundx = jacobian(fun, argnum=0, mode=jacmode, h=jaceps)
         dfundl = jacobian(fun, argnum=1, mode=jacmode, h=jaceps)
     else:
         dfundx, dfundl = jac
-        
+
     dfdx = dfundx(x, lpf, *args)
     dfdl = dfundl(x, lpf, *args).reshape(-1, 1)
-    
+
     if sparse.issparse(dfdx):
         hstack = sparse.hstack
         vstack = sparse.vstack
@@ -110,13 +110,13 @@ def jacxt(y, n, ymax, fun, jac=None, jacmode=3, jaceps=None, args=(None,)):
         hstack = np.hstack
         vstack = np.vstack
         array = np.array
-    
+
     dfdy = hstack([array(dfdx), array(dfdl)])
     dgdy = vstack([dfdy, array(n)])
-    
+
     if sparse.issparse(dfdx):
         dgdy = dgdy.tocsr()
-        
+
     return dgdy
 
 

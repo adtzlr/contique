@@ -25,15 +25,15 @@ import numpy as np
 
 
 def needle(component: int, length: int):
-    """Return an array of zeros with a needle at a given ``component`` and 
-    ``length``. This array is used to slice out the j-th component of another 
+    """Return an array of zeros with a needle at a given ``component`` and
+    ``length``. This array is used to slice out the j-th component of another
     1d-array.
-    
+
     ..  code-block::
-        
+
         x_j = needle(component, length).dot(x)
-    
-    
+
+
     Furthermore, the derivative of this  equation w.r.t. ``x`` results in
     ``needle(component, length)``.
 
@@ -47,7 +47,7 @@ def needle(component: int, length: int):
     Returns
     -------
     ndarray
-        1d-array with a needle at item ``component`` and zero for all other 
+        1d-array with a needle at item ``component`` and zero for all other
         items.
 
     Examples

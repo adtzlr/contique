@@ -133,7 +133,19 @@ def solve(
     dymax0 = dymax.copy()
 
     # init list of results
-    yield newtonxt(fun, jac, y0, control0, dymax, jacmode, jaceps, args, maxiter=0, tol=tol, solve=solve)
+    yield newtonxt(
+        fun,
+        jac,
+        y0,
+        control0,
+        dymax,
+        jacmode,
+        jaceps,
+        args,
+        maxiter=0,
+        tol=tol,
+        solve=solve,
+    )
 
     printinfo.header()
 
@@ -141,7 +153,17 @@ def solve(
     for step in 1 + np.arange(maxsteps):
         ## pre-identification of control component
         res = newtonxt(
-            fun, jac, y0, control0, dymax, jacmode, jaceps, args, maxiter=1, tol=tol, solve=solve
+            fun,
+            jac,
+            y0,
+            control0,
+            dymax,
+            jacmode,
+            jaceps,
+            args,
+            maxiter=1,
+            tol=tol,
+            solve=solve,
         )
 
         # Cycle loop.
@@ -149,7 +171,17 @@ def solve(
 
             # Newton Iterations.
             res = newtonxt(
-                fun, jac, y0, control0, dymax, jacmode, jaceps, args, maxiter=maxiter, tol=tol, solve=solve
+                fun,
+                jac,
+                y0,
+                control0,
+                dymax,
+                jacmode,
+                jaceps,
+                args,
+                maxiter=maxiter,
+                tol=tol,
+                solve=solve,
             )
             printinfo.cycle(
                 step,
@@ -171,7 +203,7 @@ def solve(
                     # Save results, move to next step.
                     control0 = res.control
                     y0 = res.x
-                    #Res.append(res)
+                    # Res.append(res)
                     yield res
                     break
 
