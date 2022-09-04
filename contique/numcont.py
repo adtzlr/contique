@@ -22,6 +22,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
 
 import numpy as np
+from scipy.sparse.linalg import spsolve
 
 from .helpers import argparser2
 from .newtonxt import newtonxt
@@ -36,7 +37,7 @@ def solve(
     args=(None,),
     dxmax=0.05,
     dlpfmax=0.05,
-    control0="lpf",
+    control0=(-1, 1),
     jacmode=3,
     jaceps=None,
     maxsteps=50,
@@ -50,6 +51,7 @@ def solve(
     high=10,
     low=1e-6,
     minlastfailed=3,
+    solve=None,
 ):
     """Numeric continuation of (nonlinear) equilibrium equations.
 
@@ -99,6 +101,8 @@ def solve(
         rebalance min. factor of incremental increase w.r.t. to the initial values
     minlastfailed : int, optional
         rebalance increase only after a given number of converged steps
+    solve : callable, optional
+        a function which returns the solution of a linear equation system
 
     Returns
     -------
@@ -119,10 +123,9 @@ def solve(
     lastfailed = 0
 
     # initial control component
-    if control0 == "lpf":
-        j0 = ncomp
-    else:
-        j0 = control0
+    control0 = list(control0)
+    if control0[0] < 0:
+        control0[0] = ncomp - abs(control0[0])
 
     # init y=(x,l)-combined quantities
     y0 = np.append(x0, lpf0)
@@ -130,7 +133,7 @@ def solve(
     dymax0 = dymax.copy()
 
     # init list of results
-    Res = [newtonxt(fun, jac, y0, j0, dymax, jacmode, jaceps, args, maxiter=0, tol=tol)]
+    yield newtonxt(fun, jac, y0, control0, dymax, jacmode, jaceps, args, maxiter=0, tol=tol, solve=solve)
 
     printinfo.header()
 
@@ -138,7 +141,7 @@ def solve(
     for step in 1 + np.arange(maxsteps):
         ## pre-identification of control component
         res = newtonxt(
-            fun, jac, y0, j0, dymax, jacmode, jaceps, args, maxiter=1, tol=tol
+            fun, jac, y0, control0, dymax, jacmode, jaceps, args, maxiter=1, tol=tol, solve=solve
         )
 
         # Cycle loop.
@@ -146,12 +149,12 @@ def solve(
 
             # Newton Iterations.
             res = newtonxt(
-                fun, jac, y0, j0, dymax, jacmode, jaceps, args, maxiter=maxiter, tol=tol
+                fun, jac, y0, control0, dymax, jacmode, jaceps, args, maxiter=maxiter, tol=tol, solve=solve
             )
             printinfo.cycle(
                 step,
                 cycl,
-                j0,
+                control0,
                 res.control,
                 res.status,
                 np.linalg.norm(res.fun),
@@ -163,12 +166,13 @@ def solve(
             if res.success:
 
                 # Did control component change? OR Was overshoot inside allowed range?
-                if (res.control == j0) or (max(abs(res.dys)) <= overshoot):
+                if np.allclose(control0, res.control) or max(abs(res.dys)) <= overshoot:
 
                     # Save results, move to next step.
-                    j0 = res.control
+                    control0 = res.control
                     y0 = res.x
-                    Res.append(res)
+                    #Res.append(res)
+                    yield res
                     break
 
                 else:  # Were max. number of cycles reached?
@@ -178,7 +182,7 @@ def solve(
                         res.success = False
                     else:
                         # re-cycle Step with new control component
-                        j0 = res.control
+                        control0 = res.control
             else:
                 # break cycle loop if Newton Iterations failed.
                 break
@@ -207,7 +211,7 @@ def solve(
             printinfo.errorfinal()
             break
 
-    return Res
+    return
 
 
 def adjust(
