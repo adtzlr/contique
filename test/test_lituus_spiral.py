@@ -28,7 +28,7 @@ def test_lituus_spiral():
         x0=x0,
         args=(a,),
         lpf0=lpf0,
-        control0=3,
+        control0=(2, 1),
         dxmax=0.2,
         dlpfmax=0.2,
         jacmode=3,
