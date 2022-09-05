@@ -197,7 +197,8 @@ def solve(
             # Did Newton Iterations converge?
             if res.success:
 
-                # Did control component change? OR Was overshoot inside allowed range?
+                # Did control component change? OR
+                # Was overshoot inside allowed range?
                 if np.allclose(control0, res.control) or max(abs(res.dys)) <= overshoot:
 
                     # Save results, move to next step.
@@ -220,7 +221,6 @@ def solve(
                 break
 
         # Rebalance max. incremental unknowns
-        # --------------------------------------------------------------------
         if rebalance:
             dymaxn = dymax.copy()
             dymax, rebalanced, lastfailed = adjust(
@@ -236,7 +236,6 @@ def solve(
                 minlastfailed=minlastfailed,
                 nref=8,
             )
-        # --------------------------------------------------------------------
 
         # break step loop if Newton Iterations failed.
         if not res.success and not rebalanced:
