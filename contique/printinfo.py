@@ -24,7 +24,7 @@ import numpy as np
 
 
 def header():
-    print("|Step,C.|   Control Comp.   | Norm (Iter.#) | Message     |")
+    print("|Step,C.| Control Component | Norm (Iter.#) | Message     |")
     print("|-------|-------------------|---------------|-------------|")
 
 
