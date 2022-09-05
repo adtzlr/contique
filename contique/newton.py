@@ -121,7 +121,10 @@ def newtonrhapson(fun, x0, jac, args=(None,), maxiter=8, tol=1e-8, solve=None):
                 solve = np.linalg.solve
 
         # solve linear equation system
-        res.x += solve(res.jac, -res.fun)
+        try:
+            res.x += solve(res.jac, -res.fun)
+        except:
+            res.x *= np.nan
 
         # calculate function at updated x
         res.fun = argparser(fun)(res.x, *args)
