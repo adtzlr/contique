@@ -31,6 +31,7 @@ def test_sincos():
         maxiter=20,
         tol=1e-10,
         overshoot=1.0,
+        solve=np.linalg.solve,
     )
 
     X = np.array([res.x for res in Res])

@@ -49,8 +49,10 @@ def test_bratu():
     )
 
     # extract/calculate load-proportionality factor and unknown u
-    lpf = np.array([res.x[-1] for res in Res])
-    u = np.array([val(res.x[:-1]) for res in Res])
+    x = np.array([res.x for res in Res])
+
+    lpf = x[:, -1]
+    u = np.array([val(xi[:-1]) for xi in x])
 
     # create figure
     plt.plot(lpf, u, "x-")
