@@ -52,6 +52,7 @@ def solve(
     low=1e-6,
     minlastfailed=3,
     solve=None,
+    callback=lambda step, res: None,
 ):
     """Numeric continuation of (nonlinear) equilibrium equations.
 
@@ -103,6 +104,8 @@ def solve(
         rebalance increase only after a given number of converged steps
     solve : callable, optional
         a function which returns the solution of a linear equation system
+    callback : callable, optional
+        a function to interact with the results of each step
 
     Returns
     -------
@@ -133,7 +136,7 @@ def solve(
     dymax0 = dymax.copy()
 
     # init list of results
-    yield newtonxt(
+    res = newtonxt(
         fun,
         jac,
         y0,
@@ -146,6 +149,7 @@ def solve(
         tol=tol,
         solve=solve,
     )
+    yield res
 
     printinfo.header()
 
@@ -204,7 +208,8 @@ def solve(
                     # Save results, move to next step.
                     control0 = res.control
                     y0 = res.x
-                    # Res.append(res)
+
+                    callback(step, res)
                     yield res
                     break
 
