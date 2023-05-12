@@ -4,5 +4,6 @@ from .numcont import solve
 
 __all__ = [
     "__version__",
+    "jacobian",
     "solve",
 ]
