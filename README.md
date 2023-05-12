@@ -13,7 +13,7 @@
 
 Contique is a Python 3.7+ package that provides methods for numeric continuation. It depends on
 - `numpy` (for arrays) and
-- `scipy` (check if matrix is sparse and sparse solver).
+- `scipy` (check if matrix is sparse and for a sparse solver).
 
 > **Note**
 > The original motivation was to create a generalized standalone package with the built-in numeric continuation methods taken from the nonlinear truss analysis package [trusspy](https://github.com/adtzlr/trusspy).
