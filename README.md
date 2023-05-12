@@ -8,6 +8,8 @@
 ![Made with love in Graz](https://madewithlove.now.sh/at?heart=true&colorA=%233b3b3b&colorB=%231f744f&text=Graz)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black) [![DOI](https://zenodo.org/badge/341116057.svg)](https://zenodo.org/badge/latestdoi/341116057)
 
+Contique is a Python 3.7+ package that provides a method for numeric continuation.
+
 ## Theory of `contique`'s numeric continuation
 
 A solution curve for `(n)` equilibrium equations `fun` in terms of `(n)` unknowns `x` and a load-proportionality-factor `lpf` should be found by numeric continuation from an initial equilibrium state `fun(x0, lpf0) = 0`. Contique's numeric continuation method is best classified as a 
