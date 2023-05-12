@@ -1,3 +1,46 @@
 [build-system]
-requires = ["setuptools>=42", "wheel"]
+requires = ["setuptools>=61"]
 build-backend = "setuptools.build_meta"
+
+[tool.isort]
+profile = "black"
+
+[project]
+name = "contique"
+authors = [
+  {email = "a.dutzler@gmail.com"},
+  {name = "Andreas Dutzler"}
+]
+description = "Numerical continuation of nonlinear equilibrium equations."
+readme = "README.md"
+license = {file = "LICENSE"}
+keywords = [
+  "python", 
+  "numeric-continuation",
+  "scientific-computing",
+]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.7",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Topic :: Scientific/Engineering",
+  "Topic :: Scientific/Engineering :: Mathematics",
+  "Topic :: Utilities"
+]
+dynamic = ["version"]
+requires-python = ">=3.7"
+dependencies = ["numpy", "scipy"]
+
+[tool.setuptools.dynamic]
+version = {attr = "contique.__about__.__version__"}
+
+[project.urls]
+Code = "https://github.com/adtzlr/contique"
+Issues = "https://github.com/adtzlr/contique/issues"
