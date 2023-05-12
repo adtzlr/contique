@@ -15,6 +15,9 @@ Contique is a Python 3.7+ package that provides methods for numeric continuation
 - `numpy` (for arrays) and
 - `scipy` (check if matrix is sparse and sparse solver).
 
+> **Note**
+> The original motivation was to create a generalized standalone package with the built-in numeric continuation methods taken from the nonlinear truss analysis package [trusspy](https://github.com/adtzlr/trusspy).
+
 ## Theory of `contique`'s numeric continuation
 
 A solution curve for `(n)` equilibrium equations `fun` in terms of `(n)` unknowns `x` and a load-proportionality-factor `lpf` should be found by numeric continuation from an initial equilibrium state `fun(x0, lpf0) = 0`. Contique's numeric continuation method is best classified as a 
