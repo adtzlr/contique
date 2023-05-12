@@ -6,6 +6,6 @@ cff-version: 1.2.0
 message: "If you use this software, please cite it using these metadata."
 title: "contique: Numerical continuation of nonlinear equilibrium equations."
 type: software
-doi: 10.5281/zenodo.7931301
+doi: 10.5281/zenodo.7931300
 url: https://github.com/adtzlr/contique
 license: GPL-3.0
