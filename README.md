@@ -11,7 +11,9 @@
 [![DOI](https://zenodo.org/badge/341116057.svg)](https://zenodo.org/badge/latestdoi/341116057)
 [![codecov](https://codecov.io/gh/adtzlr/contique/branch/main/graph/badge.svg?token=CXKRL8TLQY)](https://codecov.io/gh/adtzlr/contique)
 
-Contique is a Python 3.7+ package that provides methods for numeric continuation.
+Contique is a Python 3.7+ package that provides methods for numeric continuation. It depends on
+- `numpy` (for arrays) and
+- `scipy` (check if matrix is sparse and sparse solver).
 
 ## Theory of `contique`'s numeric continuation
 
