@@ -1,24 +1,6 @@
-# -*- coding: utf-8 -*-
 """
-Created on Wed Feb 17 14:31:04 2021
-
-@author: adtzlr
-
-Contique - Numeric continuation of equilibrium equations
-Copyright (C) 2022 Andreas Dutzler
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <https://www.gnu.org/licenses/>.
+contique: Numerical continuation of nonlinear equilibrium equations.
+Andreas Dutzler, 2023
 """
 import numpy as np
 from scipy import sparse
@@ -60,10 +42,10 @@ def funxt(y, needle_vector, ymax, fun, jac=None, jacmode=3, jaceps=None, args=(N
     """
 
     # split the unknowns
-    x, l = y[:-1], y[-1]
+    x, lpf = y[:-1], y[-1]
 
     # evaluate the given function
-    f = fun(x, l, *args)
+    f = fun(x, lpf, *args)
 
     if sparse.issparse(f):
         # convert function vector to array
@@ -176,7 +158,8 @@ def newtonxt(
         user-specified stepwidth (if None, this defaults to eps^(1/mode))
     args : tuple, optional
         Optional tuple of arguments which are passed to the function. Eeven if only
-        one argument is passed, it has to be encapsulated in a tuple (default is (None,)).
+        one argument is passed, it has to be encapsulated in a tuple (default is
+        (None,)).
     maxiter : int, optional
         max. number of Newton-iterations per cycle
     tol : float, optional

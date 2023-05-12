@@ -1,24 +1,6 @@
-# -*- coding: utf-8 -*-
 """
-Created on Wed Feb 17 14:31:04 2021
-
-@author: adtzlr
-
-Contique - Numeric continuation of equilibrium equations
-Copyright (C) 2021 Andreas Dutzler
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <https://www.gnu.org/licenses/>.
+contique: Numerical continuation of nonlinear equilibrium equations.
+Andreas Dutzler, 2023
 """
 import numpy as np
 from scipy import sparse
@@ -38,7 +20,8 @@ class NewtonResult:
     message : str
         message for the state
     status : int
-        integer representig the status of the solution (0 if not converged, 1 if converged).
+        integer representig the status of the solution (0 if not converged, 1 if
+        converged).
     niterations : int
         number of performed iterations
     x : ndarray
@@ -63,7 +46,8 @@ class NewtonResult:
             function returning the jacobian of the equilibrium equations
         args : tuple, optional
             Optional tuple of arguments which are passed to the function. Eeven if only
-            one argument is passed, it has to be encapsulated in a tuple (default is (None,)).
+            one argument is passed, it has to be encapsulated in a tuple (default is
+            (None,)).
 
         """
         self.success = False
@@ -91,7 +75,8 @@ def newtonrhapson(fun, x0, jac, args=(None,), maxiter=8, tol=1e-8, solve=None):
         jacobian of fun w.r.t. the unknows x
     args : tuple, optional
         Optional tuple of arguments which are passed to the function. Eeven if only
-        one argument is passed, it has to be encapsulated in a tuple (default is (None,)).
+        one argument is passed, it has to be encapsulated in a tuple (default is
+        (None,)).
     maxiter : int, optional
         maximum number of iterations (default is 8)
     tol : float, optional
@@ -123,7 +108,7 @@ def newtonrhapson(fun, x0, jac, args=(None,), maxiter=8, tol=1e-8, solve=None):
         # solve linear equation system
         try:
             res.x += solve(res.jac, -res.fun)
-        except:
+        except:  # NOQA: E722
             res.x *= np.nan
 
         # calculate function at updated x
@@ -144,7 +129,12 @@ def newtonrhapson(fun, x0, jac, args=(None,), maxiter=8, tol=1e-8, solve=None):
     # check if newton process failed
     if not res.success:
         if maxiter == 1:
-            res.message = "Calculated linear solution because of input parameter `maxiter=1` (not converged)."
+            res.message = " ".join(
+                [
+                    "Calculated linear solution",
+                    "because of input parameter `maxiter=1` (not converged).",
+                ]
+            )
         else:
             res.message = "Newton-R. process failed."
 

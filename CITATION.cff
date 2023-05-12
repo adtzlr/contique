@@ -1,0 +1,11 @@
+authors:
+- family-names: "Dutzler"
+  given-names: "Andreas"
+  orcid: "https://orcid.org/0000-0002-9383-9686"
+cff-version: 1.2.0
+message: "If you use this software, please cite it using these metadata."
+title: "contique: Numerical continuation of nonlinear equilibrium equations."
+type: software
+doi: 10.5281/zenodo.341116057
+url: https://github.com/adtzlr/contique
+license: GPL-3.0

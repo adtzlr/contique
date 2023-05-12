@@ -1,24 +1,6 @@
-# -*- coding: utf-8 -*-
 """
-Created on Wed Feb 17 14:31:04 2021
-
-@author: adtzlr
-
-Contique - Numeric continuation of equilibrium equations
-Copyright (C) 2022 Andreas Dutzler
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <https://www.gnu.org/licenses/>.
+contique: Numerical continuation of nonlinear equilibrium equations.
+Andreas Dutzler, 2023
 """
 
 import numpy as np
@@ -96,7 +78,7 @@ def argparser(fun):
     "Function decorator for the handling of function arguments."
 
     def inner(x, *args, **kwargs):
-        "Pass \*args and \*\*kwargs to a function if they are not None."
+        "Pass `*args` and `**kwargs` to a function if they are not None."
         no_args = (len(args) == 1 and args[0] is None) or not bool(args)
         no_kwargs = not bool(kwargs)
 
@@ -118,7 +100,7 @@ def argparser2(fun):
     with 2 primary arguments followed by other args."""
 
     def inner2(x, lpf, *args, **kwargs):
-        "Pass \*args and \*\*kwargs to a function if they are not None."
+        "Pass `*args` and `**kwargs` to a function if they are not None."
         no_args = (len(args) == 1 and args[0] is None) or not bool(args)
         no_kwargs = not bool(kwargs)
 

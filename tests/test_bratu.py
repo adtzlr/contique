@@ -8,9 +8,9 @@ import contique
 def fun(x, lpf):
     n = len(x)
     h = 1 / (n - 1)
-    A = np.diag(2 * np.ones_like(x) / h ** 2)
+    A = np.diag(2 * np.ones_like(x) / h**2)
     for i in [1, -1]:
-        A -= np.diag(np.ones_like(x[:-1]) / h ** 2, i)
+        A -= np.diag(np.ones_like(x[:-1]) / h**2, i)
     f = -A.dot(x) + lpf * np.exp(x)
     for i in [0, -1]:
         f[i] = x[i]

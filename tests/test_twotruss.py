@@ -7,7 +7,7 @@ import contique
 
 def fun(x, lpf, a, L, EA):
     WL = -x[0] / L
-    lL = np.sqrt(1 - 2 * np.sin(a) * WL + WL ** 2)
+    lL = np.sqrt(1 - 2 * np.sin(a) * WL + WL**2)
     N = EA * (lL - 1)
     return np.array([2 * N * (np.sin(a) - WL) + lpf])
 
