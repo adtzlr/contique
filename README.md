@@ -26,7 +26,7 @@ A solution curve for `(n)` equilibrium equations `fun` in terms of `(n)` unknown
 - **magnitude-based control-component switching**.
 
 
-<img src="https://github.com/adtzlr/contique/assets/5793153/6b38c783-bdfc-470a-8a66-82a3ca663407" width="75%">
+<a href="https://github.com/adtzlr/contique/blob/main/tests/test_archimedean_spiral.py"><img src="https://github.com/adtzlr/contique/assets/5793153/6b38c783-bdfc-470a-8a66-82a3ca663407" width="75%"></>
 
 Fig. 1 [Archimedean spiral](https://en.wikipedia.org/wiki/Archimedean_spiral) equation solved with [contique](https://github.com/adtzlr/contique/blob/main/tests/test_archimedean_spiral.py)
   
@@ -138,7 +138,7 @@ plt.arrow(
 plt.gca().set_aspect("equal")
 ```
 
-<img src="https://github.com/adtzlr/contique/assets/5793153/20fb6415-d226-4859-b818-4f79194ba1e2" width="75%">
+<a href="https://github.com/adtzlr/contique/blob/main/tests/test_sincos.py"><img src="https://github.com/adtzlr/contique/assets/5793153/20fb6415-d226-4859-b818-4f79194ba1e2" width="75%"></a>
 
 Fig. 2 Solution states of [equilibrium equations](https://github.com/adtzlr/contique/blob/main/tests/test_sincos.py) solved with contique
 
