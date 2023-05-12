@@ -23,7 +23,7 @@ A solution curve for `(n)` equilibrium equations `fun` in terms of `(n)` unknown
 
 <img src="https://raw.githubusercontent.com/adtzlr/contique/main/test/test_archimedean_spiral.svg" width="75%">
 
-Fig. 1 [Archimedean spiral](https://en.wikipedia.org/wiki/Archimedean_spiral) equation solved with [contique](https://github.com/adtzlr/contique/blob/main/test/test_archimedean_spiral.py)
+Fig. 1 [Archimedean spiral](https://en.wikipedia.org/wiki/Archimedean_spiral) equation solved with [contique](https://github.com/adtzlr/contique/blob/main/tests/test_archimedean_spiral.py)
   
 ### Extended equilibrium equations
 The `lpf` value is appended to the unknows `x` which gives the so-called extended unknowns `y = [x, lpf]`. One additional control equation is added to the equilibrium equations to ensure `(n+1)` equations in terms of `(n+1)` extended unknowns (see next section). This reduces the solution to a point on the initial solution curve.
@@ -133,6 +133,6 @@ plt.arrow(
 plt.gca().set_aspect("equal")
 ```
 
-<img src="https://raw.githubusercontent.com/adtzlr/contique/main/test/test_sincos.svg" width="75%">
+<img src="https://raw.githubusercontent.com/adtzlr/contique/main/tests/test_sincos.svg" width="75%">
 
-Fig. 2 Solution states of [equilibrium equations](https://github.com/adtzlr/contique/blob/main/test/test_sincos.py) solved with contique
+Fig. 2 Solution states of [equilibrium equations](https://github.com/adtzlr/contique/blob/main/tests/test_sincos.py) solved with contique
