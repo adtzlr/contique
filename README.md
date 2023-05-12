@@ -21,7 +21,7 @@ A solution curve for `(n)` equilibrium equations `fun` in terms of `(n)` unknown
 - **magnitude-based control-component switching**.
 
 
-<img src="https://raw.githubusercontent.com/adtzlr/contique/main/test/test_archimedean_spiral.svg" width="75%">
+<img src="https://raw.githubusercontent.com/adtzlr/contique/main/tests/test_archimedean_spiral.svg" width="75%">
 
 Fig. 1 [Archimedean spiral](https://en.wikipedia.org/wiki/Archimedean_spiral) equation solved with [contique](https://github.com/adtzlr/contique/blob/main/tests/test_archimedean_spiral.py)
   
