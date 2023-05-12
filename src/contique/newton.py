@@ -20,7 +20,8 @@ class NewtonResult:
     message : str
         message for the state
     status : int
-        integer representig the status of the solution (0 if not converged, 1 if converged).
+        integer representig the status of the solution (0 if not converged, 1 if
+        converged).
     niterations : int
         number of performed iterations
     x : ndarray
@@ -45,7 +46,8 @@ class NewtonResult:
             function returning the jacobian of the equilibrium equations
         args : tuple, optional
             Optional tuple of arguments which are passed to the function. Eeven if only
-            one argument is passed, it has to be encapsulated in a tuple (default is (None,)).
+            one argument is passed, it has to be encapsulated in a tuple (default is
+            (None,)).
 
         """
         self.success = False
@@ -73,7 +75,8 @@ def newtonrhapson(fun, x0, jac, args=(None,), maxiter=8, tol=1e-8, solve=None):
         jacobian of fun w.r.t. the unknows x
     args : tuple, optional
         Optional tuple of arguments which are passed to the function. Eeven if only
-        one argument is passed, it has to be encapsulated in a tuple (default is (None,)).
+        one argument is passed, it has to be encapsulated in a tuple (default is
+        (None,)).
     maxiter : int, optional
         maximum number of iterations (default is 8)
     tol : float, optional
@@ -105,7 +108,7 @@ def newtonrhapson(fun, x0, jac, args=(None,), maxiter=8, tol=1e-8, solve=None):
         # solve linear equation system
         try:
             res.x += solve(res.jac, -res.fun)
-        except:
+        except:  # NOQA: E722
             res.x *= np.nan
 
         # calculate function at updated x
@@ -126,7 +129,12 @@ def newtonrhapson(fun, x0, jac, args=(None,), maxiter=8, tol=1e-8, solve=None):
     # check if newton process failed
     if not res.success:
         if maxiter == 1:
-            res.message = "Calculated linear solution because of input parameter `maxiter=1` (not converged)."
+            res.message = " ".join(
+                [
+                    "Calculated linear solution",
+                    "because of input parameter `maxiter=1` (not converged).",
+                ]
+            )
         else:
             res.message = "Newton-R. process failed."
 

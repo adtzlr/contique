@@ -42,10 +42,10 @@ def funxt(y, needle_vector, ymax, fun, jac=None, jacmode=3, jaceps=None, args=(N
     """
 
     # split the unknowns
-    x, l = y[:-1], y[-1]
+    x, lpf = y[:-1], y[-1]
 
     # evaluate the given function
-    f = fun(x, l, *args)
+    f = fun(x, lpf, *args)
 
     if sparse.issparse(f):
         # convert function vector to array
@@ -158,7 +158,8 @@ def newtonxt(
         user-specified stepwidth (if None, this defaults to eps^(1/mode))
     args : tuple, optional
         Optional tuple of arguments which are passed to the function. Eeven if only
-        one argument is passed, it has to be encapsulated in a tuple (default is (None,)).
+        one argument is passed, it has to be encapsulated in a tuple (default is
+        (None,)).
     maxiter : int, optional
         max. number of Newton-iterations per cycle
     tol : float, optional

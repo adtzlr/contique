@@ -4,7 +4,6 @@ Andreas Dutzler, 2023
 """
 
 import numpy as np
-from scipy.sparse.linalg import spsolve
 
 from .helpers import argparser2
 from .newtonxt import newtonxt
@@ -51,7 +50,8 @@ def solve(
         jacobian of fun w.r.t. the unknows x
     args : tuple, optional
         Optional tuple of arguments which are passed to the function. Eeven if only
-        one argument is passed, it has to be encapsulated in a tuple (default is (None,)).
+        one argument is passed, it has to be encapsulated in a tuple (default is
+        (None,)).
     dxmax : float, optional
         max. allowed absolute incremental increase of unknowns per step
     dlpfmax : float, optional
@@ -137,7 +137,7 @@ def solve(
 
     # Step loop.
     for step in 1 + np.arange(maxsteps):
-        ## pre-identification of control component
+        # pre-identification of control component
         res = newtonxt(
             fun,
             jac,
