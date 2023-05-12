@@ -141,3 +141,6 @@ plt.gca().set_aspect("equal")
 <img src="https://raw.githubusercontent.com/adtzlr/contique/main/tests/test_sincos.svg" width="75%">
 
 Fig. 2 Solution states of [equilibrium equations](https://github.com/adtzlr/contique/blob/main/tests/test_sincos.py) solved with contique
+
+# Changelog
+All notable changes to this project will be documented in [this file](CHANGELOG.md). The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
