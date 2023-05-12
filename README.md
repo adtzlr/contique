@@ -8,15 +8,17 @@
 ![Made with love in Graz](https://madewithlove.now.sh/at?heart=true&colorA=%233b3b3b&colorB=%231f744f&text=Graz)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black) [![DOI](https://zenodo.org/badge/341116057.svg)](https://zenodo.org/badge/latestdoi/341116057)
 
-<img src="https://raw.githubusercontent.com/adtzlr/contique/main/test/test_archimedean_spiral.svg" width="75%">
-
-Fig. 1 [Archimedean spiral](https://en.wikipedia.org/wiki/Archimedean_spiral) equation solved with [contique](https://github.com/adtzlr/contique/blob/main/test/test_archimedean_spiral.py)
-
 ## Theory of `contique`'s numeric continuation
 
 A solution curve for `(n)` equilibrium equations `fun` in terms of `(n)` unknowns `x` and a load-proportionality-factor `lpf` should be found by numeric continuation from an initial equilibrium state `fun(x0, lpf0) = 0`. Contique's numeric continuation method is best classified as a 
+
 - **component-based continuation** with an adaptive 
 - **magnitude-based control-component switching**.
+
+
+<img src="https://raw.githubusercontent.com/adtzlr/contique/main/test/test_archimedean_spiral.svg" width="75%">
+
+Fig. 1 [Archimedean spiral](https://en.wikipedia.org/wiki/Archimedean_spiral) equation solved with [contique](https://github.com/adtzlr/contique/blob/main/test/test_archimedean_spiral.py)
   
 ### Extended equilibrium equations
 The `lpf` value is appended to the unknows `x` which gives the so-called extended unknowns `y = [x, lpf]`. One additional control equation is added to the equilibrium equations to ensure `(n+1)` equations in terms of `(n+1)` extended unknowns (see next section). This reduces the solution to a point on the initial solution curve.
@@ -41,8 +43,9 @@ A given set of equilibrium equations in terms of `x` and `lpf` (a.k.a. load-prop
 ### Function definition
 ```python
 def fun(x, lpf, a, b):
-    return np.array([-a * np.sin(x[0]) + x[1]**2 + lpf, 
-                     -b * np.cos(x[1]) * x[1]    + lpf])
+    return np.array(
+        [-a * np.sin(x[0]) + x[1] ** 2 + lpf, -b * np.cos(x[1]) * x[1] + lpf]
+    )
 ```
 
 with its initial solution
@@ -71,7 +74,7 @@ Res = contique.solve(
     maxcycles=4,
     maxiter=20,
     tol=1e-8,
-    overshoot=1.05
+    overshoot=1.05,
 )
 ```
 
@@ -109,12 +112,20 @@ and plot the solution curve.
 import matplotlib.pyplot as plt
 
 plt.plot(X[:, 0], X[:, 1], "C0.-")
-plt.xlabel('$x_1$')
-plt.ylabel('$x_2$')
-plt.plot([0],[0],'C0o',lw=3)
-plt.arrow(X[-2,0],X[-2,1],X[-1,0]-X[-2,0],X[-1,1]-X[-2,1],
-          head_width=0.075, head_length=0.15, fc='C0', ec='C0')
-plt.gca().set_aspect('equal')
+plt.xlabel("$x_1$")
+plt.ylabel("$x_2$")
+plt.plot([0], [0], "C0o", lw=3)
+plt.arrow(
+    X[-2, 0],
+    X[-2, 1],
+    X[-1, 0] - X[-2, 0],
+    X[-1, 1] - X[-2, 1],
+    head_width=0.075,
+    head_length=0.15,
+    fc="C0",
+    ec="C0",
+)
+plt.gca().set_aspect("equal")
 ```
 
 <img src="https://raw.githubusercontent.com/adtzlr/contique/main/test/test_sincos.svg" width="75%">
