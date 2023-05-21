@@ -5,8 +5,8 @@ Andreas Dutzler, 2023
 import numpy as np
 from scipy import sparse
 
+from .helpers import control, needle
 from .jacobian import jacobian
-from .helpers import needle, control
 from .newton import newtonrhapson
 
 

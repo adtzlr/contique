@@ -5,9 +5,9 @@ Andreas Dutzler, 2023
 
 import numpy as np
 
+from . import printinfo
 from .helpers import argparser2
 from .newtonxt import newtonxt
-from . import printinfo
 
 
 def solve(
