@@ -11,7 +11,6 @@ def fun(x, l, a):
 
 
 def test_lituus_spiral():
-
     # additional function arguments
     a = 1
 

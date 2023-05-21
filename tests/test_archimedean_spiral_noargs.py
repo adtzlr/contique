@@ -12,7 +12,6 @@ def fun(x, l):
 
 
 def test_archimedian_spiral_noargs():
-
     # initial solution
     x0 = np.zeros(2)
     lpf0 = 0.0

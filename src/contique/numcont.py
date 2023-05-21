@@ -112,7 +112,7 @@ def solve(
     if control0[0] < 0:
         control0[0] = ncomp - abs(control0[0])
 
-    # init y=(x,l)-combined quantities
+    # init y=[x, lpf] - combined quantities
     y0 = np.append(x0, lpf0)
     dymax = np.append(np.ones_like(x0) * dxmax, dlpfmax)
     dymax0 = dymax.copy()
@@ -154,7 +154,6 @@ def solve(
 
         # Cycle loop.
         for cycl in 1 + np.arange(maxcycles):
-
             # Newton Iterations.
             res = newtonxt(
                 fun,
@@ -182,11 +181,9 @@ def solve(
 
             # Did Newton Iterations converge?
             if res.success:
-
                 # Did control component change? OR
                 # Was overshoot inside allowed range?
                 if np.allclose(control0, res.control) or max(abs(res.dys)) <= overshoot:
-
                     # Save results, move to next step.
                     control0 = res.control
                     y0 = res.x

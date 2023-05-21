@@ -13,7 +13,6 @@ def fun(x, lpf, a, L, EA):
 
 
 def test_twotruss():
-
     # initial solution
     x0 = np.zeros(1)
     lpf0 = 0.0

@@ -10,7 +10,6 @@ def fun(x, l, a, b):
 
 
 def test_sincos():
-
     # initial solution
     x0 = np.zeros(2)
     lpf0 = 0.0

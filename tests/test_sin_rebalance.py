@@ -10,7 +10,6 @@ def fun(x, l, a, b):
 
 
 def test_sin_rebalance():
-
     # initial solution
     x0 = np.zeros(1)
     lpf0 = 0.0

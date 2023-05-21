@@ -94,7 +94,6 @@ def newtonrhapson(fun, x0, jac, args=(None,), maxiter=8, tol=1e-8, solve=None):
 
     # iteration loop
     for res.niterations in range(1, 1 + maxiter):
-
         # calculate jacobian at x
         res.jac = argparser(jac)(res.x, *args)
 

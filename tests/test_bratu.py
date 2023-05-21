@@ -27,7 +27,6 @@ def val(x):
 
 
 def test_bratu():
-
     # initial solution
     n = 51
     lpf0 = 0.0

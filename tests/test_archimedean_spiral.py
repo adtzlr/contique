@@ -11,7 +11,6 @@ def fun(x, l, a):
 
 
 def test_archimedian_spiral():
-
     # initial solution
     x0 = np.zeros(2)
     lpf0 = 0.0

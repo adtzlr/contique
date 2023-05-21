@@ -48,7 +48,6 @@ def jacobian(fun, argnum=0, h=None, mode=3):
 
             # loop over columns
             for j in range(nargs):
-
                 # copy args and modify item j of 1d-args
                 fwdargs = copy.deepcopy(args)
                 fwdargs[argnum].ravel()[j] = fwdargs[argnum].ravel()[j] + h

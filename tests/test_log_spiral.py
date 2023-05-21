@@ -11,7 +11,6 @@ def fun(x, l, a, k):
 
 
 def test_log_spiral():
-
     # initial solution
     x0 = np.array([1.0, 0.0])
     lpf0 = 0.0
