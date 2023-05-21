@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://github.com/adtzlr/contique/assets/5793153/86662194-2e2f-4dd6-b7de-5adf3270105d" height="80px"/>
+  <img src="https://github.com/adtzlr/contique/assets/5793153/86662194-2e2f-4dd6-b7de-5adf3270105d"/>
   <p align="center">Numerical continuation of nonlinear equilibrium equations.</p>
 </p>
 
