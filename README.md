@@ -18,7 +18,7 @@ Contique is a Python 3.7+ package that provides methods for numeric continuation
 > **Note**
 > The original motivation was to create a generalized standalone package with the built-in numeric continuation methods taken from the nonlinear truss analysis package [trusspy](https://github.com/adtzlr/trusspy).
 
-## Theory of `contique`'s numeric continuation
+## Numeric Continuation
 
 A solution curve for `(n)` equilibrium equations `fun` in terms of `(n)` unknowns `x` and a load-proportionality-factor `lpf` should be found by numeric continuation from an initial equilibrium state `fun(x0, lpf0) = 0`. Contique's numeric continuation method is best classified as a 
 
@@ -29,13 +29,13 @@ A solution curve for `(n)` equilibrium equations `fun` in terms of `(n)` unknown
 
 Fig. 1 [Archimedean spiral](https://en.wikipedia.org/wiki/Archimedean_spiral) equation solved with [contique](https://github.com/adtzlr/contique/blob/main/tests/test_archimedean_spiral.py)
   
-### Extended equilibrium equations
+### Extended Equilibrium Equations
 The `lpf` value is appended to the unknows `x` which gives the so-called extended unknowns `y = [x, lpf]`. One additional control equation is added to the equilibrium equations to ensure `(n+1)` equations in terms of `(n+1)` extended unknowns (see next section). This reduces the solution to a point on the initial solution curve.
 
 ### Control Equation
 The control equation is defined as follows: First, a needle-vector with dimension `(n+1)` is created and filled with zeros `needle = 0`. For a given initial signed control component `j` the needle is positioned at `needle[|j|] = 1`. The maximum allowed values per component are calculated as `ymax = y0 + np.sign(j) dymax`. The control equation is finally formulated as `f(y) = needle.T (y - ymax)`.
 
-### Solution technique
+### Solution Technique
 The numeric solution process is divided into three main parts:
 
 - **Step**
@@ -50,7 +50,7 @@ As the name implies, a **Step** tries to find the extended unknowns for the next
 ## Example
 A given set of equilibrium equations in terms of `x` and `lpf` (a.k.a. load-proportionality-factor) should be solved by numeric continuation of a given initial solution.
 
-### Function definition
+### Function Definition
 ```python
 import numpy as np
 
