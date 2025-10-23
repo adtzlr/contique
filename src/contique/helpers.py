@@ -11,14 +11,6 @@ def needle(component: int, length: int):
     index ``component`` with value one. This array is used to  slice out the j-th
     component of another 1d-array.
 
-    ..  code-block::
-
-        x_j = needle(component, length).dot(x)
-
-
-    Furthermore, the derivative of this  equation w.r.t. ``x`` results in
-    ``needle(component, length)``.
-
     Parameters
     ----------
     component : int
@@ -31,6 +23,17 @@ def needle(component: int, length: int):
     ndarray
         1d-array with a needle at index ``component`` and zero for all other
         items.
+    
+    Notes
+    -----
+    
+    ..  code-block::
+
+        x_j = needle(component, length).dot(x)
+
+
+    The derivative of this  equation w.r.t. ``x`` results in
+    ``needle(component, length)``.
 
     Examples
     --------
