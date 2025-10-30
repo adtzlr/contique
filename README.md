@@ -74,7 +74,7 @@ b = 1
 ```python
 import contique
 
-Res = contique.solve(
+res = contique.solve(
     fun=fun,
     x0=x0,
     args=(a, b),
@@ -114,7 +114,7 @@ For each `step` a summary is printed out per `cycle`. This contains an informati
 Next, we have to assemble the results
 
 ```python
-X = np.array([res.x for res in Res])
+X = np.array([r.x for r in res])
 ```
 
 and plot the solution curve.
