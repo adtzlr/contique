@@ -10,17 +10,29 @@
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.7931300.svg)](https://doi.org/10.5281/zenodo.7931300)
 [![codecov](https://codecov.io/gh/adtzlr/contique/branch/main/graph/badge.svg?token=CXKRL8TLQY)](https://codecov.io/gh/adtzlr/contique)
 
-Contique is a Python 3.9+ package that provides methods for numeric continuation. It depends on
+Contique is a Python 3.9+ package that provides methods for numeric continuation.
+
+## ✨ Highlights
+Contique's numeric continuation method is best classified as a 
+
+- ✅ **component-based continuation** with an adaptive 
+- ✅ **magnitude-based control-component switching**.
+
+> [!NOTE]
+> *What is numeric continuation?* A solution curve for `(n)` equilibrium equations `fun` in terms of `(n)` unknowns `x` and a load-proportionality-factor `lpf` should be found by numeric continuation from an initial equilibrium state `fun(x0, lpf0) = 0`. 
+
+## 📦 Installation
+Install Python, open a terminal and run
+
+```shell
+pip install contique
+```
+
+Contique depends on
 - `numpy` (for arrays) and
 - `scipy` (check if matrix is sparse and for a sparse solver).
 
-## Numeric Continuation
-
-A solution curve for `(n)` equilibrium equations `fun` in terms of `(n)` unknowns `x` and a load-proportionality-factor `lpf` should be found by numeric continuation from an initial equilibrium state `fun(x0, lpf0) = 0`. Contique's numeric continuation method is best classified as a 
-
-- **component-based continuation** with an adaptive 
-- **magnitude-based control-component switching**.
-
+## Theory Guide - Numeric Continuation
 [![Archimedean-Spiral](https://github.com/adtzlr/contique/assets/5793153/6b38c783-bdfc-470a-8a66-82a3ca663407)](https://github.com/adtzlr/contique/blob/main/tests/test_archimedean_spiral.py)
 
 Fig. 1 [Archimedean spiral](https://en.wikipedia.org/wiki/Archimedean_spiral) equation solved with [contique](https://github.com/adtzlr/contique/blob/main/tests/test_archimedean_spiral.py).
@@ -43,10 +55,9 @@ As the name implies, a **Step** tries to find the extended unknowns for the next
 > **Note**
 > Pre-evaluation of the initial control component of a **Step**: This is performed by the linear solution of the extended equilibrium equations. It is equal to the result of the first *Iteration* of the Newton-Rhapson root method.
 
-## Example
-A given set of equilibrium equations in terms of `x` and `lpf` (a.k.a. load-proportionality-factor) should be solved by numeric continuation of a given initial solution.
+## 🚀 Getting Started Example
+A given set of equilibrium equations in terms of `x` and `lpf` (a.k.a. load-proportionality-factor) should be solved by numeric continuation of a given initial solution. We start with the definition of a function
 
-### Function Definition
 ```python
 import numpy as np
 
@@ -58,18 +69,20 @@ def fun(x, lpf, a, b):
 ```
 
 with its initial solution
+
 ```python
 x0 = np.zeros(2)
 lpf0 = 0.0
 ```
 
-and function parameters
+and function parameters.
+
 ```python
 a = 1
 b = 1
 ```
 
-### Run `contique.solve` and plot equilibrium states
+Now let's run `contique.solve()` and plot the states of equilibrium.
 
 ```python
 import contique
@@ -143,5 +156,14 @@ plt.gca().set_aspect("equal")
 
 Fig. 2 Solution states of [equilibrium equations](https://github.com/adtzlr/contique/blob/main/tests/test_sincos.py) solved with [contique](https://github.com/adtzlr/contique/blob/main/tests/test_sincos.py).
 
-# Changelog
+## 📄 Changelog
 All notable changes to this project will be documented in [this file](CHANGELOG.md). The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## 🔓 License
+Contique - Numerical continuation of nonlinear equilibrium equations (C) 2021-2025 Andreas Dutzler, Graz (Austria).
+
+This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License along with this program. If not, see <https://www.gnu.org/licenses/>.
