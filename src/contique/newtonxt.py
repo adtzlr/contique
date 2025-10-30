@@ -1,25 +1,24 @@
 """
 contique: Numerical continuation of nonlinear equilibrium equations.
-Andreas Dutzler, 2023
 """
 
 import numpy as np
 from scipy import sparse
 
-from .helpers import control, needle
+from .helpers import control, one_hot
 from .jacobian import jacobian
 from .newton import newtonrhapson
 
 
-def funxt(y, needle_vector, ymax, fun, jac=None, jacmode=3, jaceps=None, args=(None,)):
+def funxt(y, one_hot_vector, ymax, fun, jac=None, jacmode=3, jaceps=None, args=(None,)):
     """Extend the given equilibrium equations.
 
     Parameters
     ----------
     y : array
         1d-array of unknowns
-    needle_vector : array
-        (pre-evaluated) needle-vector
+    one_hot_vector : array
+        (pre-evaluated) one-hot vector
     ymax : array
         1d-array with max. allowed values of unknows
     fun : function
@@ -53,18 +52,18 @@ def funxt(y, needle_vector, ymax, fun, jac=None, jacmode=3, jaceps=None, args=(N
         f = f.toarray()
 
     # extend the function
-    return np.append(f, np.dot(needle_vector, (y - ymax)))
+    return np.append(f, np.dot(one_hot_vector, (y - ymax)))
 
 
-def jacxt(y, needle_vector, ymax, fun, jac=None, jacmode=3, jaceps=None, args=(None,)):
+def jacxt(y, one_hot_vector, ymax, fun, jac=None, jacmode=3, jaceps=None, args=(None,)):
     """Jacobian of extended equilibrium equations.
 
     Parameters
     ----------
     y : ndarray
         1d-array of extended unknows
-    needle_vector : ndarray
-        1d-array with pre-evaluated needle-vector
+    one_hot_vector : ndarray
+        1d-array with pre-evaluated one-hot vector
     ymax : ndarray
         1d-array with max. allowed incremental increase values of y
     fun : function
@@ -115,7 +114,7 @@ def jacxt(y, needle_vector, ymax, fun, jac=None, jacmode=3, jaceps=None, args=(N
 
     # extend the jacobian
     dfdy = hstack([array(dfdx), array(dfdl)])
-    dgdy = vstack([dfdy, array(needle_vector)])
+    dgdy = vstack([dfdy, array(one_hot_vector)])
 
     if sparse.issparse(dfdx):
         # convert to compressed sparse row format
@@ -174,9 +173,9 @@ def newtonxt(
         Instance of NewtonResult with res.x being the final extended unknowns
     """
 
-    # init needle-vector and obtain ymax
+    # init one-hot vector and obtain ymax
     component0, sign0 = control0
-    n = needle(component0, len(y0))
+    one_hot_vector = one_hot(component0, len(y0))
     ymax = y0 + sign0 * dymax
 
     # Newton-Rhapson solver
@@ -184,7 +183,7 @@ def newtonxt(
         fun=funxt,
         x0=y0,
         jac=jacxt,
-        args=(n, ymax, fun, jac, jacmode, jaceps, args),
+        args=(one_hot_vector, ymax, fun, jac, jacmode, jaceps, args),
         maxiter=maxiter,
         tol=tol,
         solve=solve,
