@@ -13,7 +13,11 @@
 Contique is a Python 3.9+ package that provides methods for numeric continuation.
 
 ## ✨ Highlights
-Contique's numeric continuation method is best classified as a 
+Contique's
+
+- ✅ powerful numeric continuation method `contique.solve()`
+
+is best classified as a 
 
 - ✅ **component-based continuation** with an adaptive 
 - ✅ **magnitude-based control-component switching**.
