@@ -98,7 +98,7 @@ def solve(
     # allow passing empty *args to fun(x, lpf)
     fun = argparser2(fun)
 
-    # init number of unknows
+    # init extended number of unknowns
     ncomp = 1 + len(x0)
 
     # init rebalance and lastfailed
@@ -111,7 +111,7 @@ def solve(
     if control0[0] < 0:
         control0[0] = ncomp - abs(control0[0])
 
-    # init y=[x, lpf] - combined quantities
+    # init y=[x, lpf] combined quantities
     y0 = np.append(x0, lpf0)
     dymax = np.append(np.ones_like(x0) * dxmax, dlpfmax)
     dymax0 = dymax.copy()
