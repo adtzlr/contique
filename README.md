@@ -19,8 +19,11 @@ Contique's
 
 is best classified as a 
 
-- ✅ **component-based continuation** with an adaptive 
-- ✅ **magnitude-based control-component switching**.
+- ✅ **component-based continuation**
+
+with an
+
+- ✅ adaptive **magnitude-based control-component switching**.
 
 > [!NOTE]
 > *What is numeric continuation?* A solution curve for `(n)` equilibrium equations `fun` in terms of `(n)` unknowns `x` and a load-proportionality-factor `lpf` should be found by numeric continuation from an initial equilibrium state `fun(x0, lpf0) = 0`. 
