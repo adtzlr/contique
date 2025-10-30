@@ -23,10 +23,10 @@ def needle(component: int, length: int):
     ndarray
         1d-array with a needle at index ``component`` and zero for all other
         items.
-    
+
     Notes
     -----
-    
+
     ..  code-block::
 
         x_j = needle(component, length).dot(x)
