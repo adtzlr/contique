@@ -38,23 +38,18 @@ A given set of equilibrium equations in terms of `x` and `lpf` (a.k.a. load-prop
 ```python
 import numpy as np
 
-
 def fun(x, lpf, a, b):
     return np.array(
         [-a * np.sin(x[0]) + x[1] ** 2 + lpf, -b * np.cos(x[1]) * x[1] + lpf]
     )
 ```
 
-with its initial solution
+with its initial solution and function parameters.
 
 ```python
 x0 = np.zeros(2)
 lpf0 = 0.0
-```
 
-and function parameters.
-
-```python
 a = 1
 b = 1
 ```
