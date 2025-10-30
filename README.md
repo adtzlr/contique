@@ -32,30 +32,7 @@ Contique depends on
 - `numpy` (for arrays) and
 - `scipy` (check if matrix is sparse and for a sparse solver).
 
-## 📝 A Brief Theory Guide - Numeric Continuation
-[![Archimedean-Spiral](https://github.com/adtzlr/contique/assets/5793153/6b38c783-bdfc-470a-8a66-82a3ca663407)](https://github.com/adtzlr/contique/blob/main/tests/test_archimedean_spiral.py)
-
-Fig. 1 [Archimedean spiral](https://en.wikipedia.org/wiki/Archimedean_spiral) equation solved with [contique](https://github.com/adtzlr/contique/blob/main/tests/test_archimedean_spiral.py).
-  
-### Extended Equilibrium Equations
-The `lpf` value is appended to the unknows `x` which gives the so-called extended unknowns `y = [x, lpf]`. One additional control equation is added to the equilibrium equations to ensure `(n+1)` equations in terms of `(n+1)` extended unknowns (see next section). This reduces the solution to a point on the initial solution curve.
-
-### Control Equation
-The control equation is defined as follows: First, a needle-vector with dimension `(n+1)` is created and filled with zeros `needle = 0`. For a given initial signed control component `j` the needle is positioned at `needle[|j|] = 1`. The maximum allowed values per component are calculated as `ymax = y0 + np.sign(j) dymax`. The control equation is finally formulated as `f(y) = needle.T (y - ymax)`.
-
-### Solution Technique
-The numeric solution process is divided into three main parts:
-
-- **Step**
-    + Cycle
-        * *Iteration* (...of a Newton-Rhapson root method)
-  
-As the name implies, a **Step** tries to find the extended unknowns for the next step forward of the equilibrium state. For each Cycle, the initial control component has to be evaluated first (see comment below). The additional control equation is evaluated with this initial control component. The generated extended equilibrium equations in terms of the extended unknows are now solved with the help of a root method (Newton-Rhapson *Iterations*). The solution of the root method `dy` is further normalized as `dy/dymax` and the final control component is evaluated as `j = |j| sign((dy/dymax)[|j|])` with `|j| = argmax(|dy/dymax|)`. If the control component changed, another Cycle is performed with the initial control component being now the final control component of the last cycle. This Cycle-loop is repeated until the control component does not change anymore.
-
-> **Note**
-> Pre-evaluation of the initial control component of a **Step**: This is performed by the linear solution of the extended equilibrium equations. It is equal to the result of the first *Iteration* of the Newton-Rhapson root method.
-
-## 🚀 Getting Started Example
+## 🚀 Getting Started
 A given set of equilibrium equations in terms of `x` and `lpf` (a.k.a. load-proportionality-factor) should be solved by numeric continuation of a given initial solution. We start with the definition of a function
 
 ```python
@@ -136,8 +113,8 @@ and plot the solution curve.
 import matplotlib.pyplot as plt
 
 plt.plot(X[:, 0], X[:, 1], "C0.-")
-plt.xlabel("$x_1$")
-plt.ylabel("$x_2$")
+plt.xlabel(r"$x_1$")
+plt.ylabel(r"$x_2$")
 plt.plot([0], [0], "C0o", lw=3)
 plt.arrow(
     X[-2, 0],
@@ -155,6 +132,29 @@ plt.gca().set_aspect("equal")
 [![Equilibrium-Equations-SinCos](https://github.com/adtzlr/contique/assets/5793153/20fb6415-d226-4859-b818-4f79194ba1e2)](https://github.com/adtzlr/contique/blob/main/tests/test_sincos.py)
 
 Fig. 2 Solution states of [equilibrium equations](https://github.com/adtzlr/contique/blob/main/tests/test_sincos.py) solved with [contique](https://github.com/adtzlr/contique/blob/main/tests/test_sincos.py).
+
+## 📝 A Brief Theory Guide - Numeric Continuation
+[![Archimedean-Spiral](https://github.com/adtzlr/contique/assets/5793153/6b38c783-bdfc-470a-8a66-82a3ca663407)](https://github.com/adtzlr/contique/blob/main/tests/test_archimedean_spiral.py)
+
+Fig. 1 [Archimedean spiral](https://en.wikipedia.org/wiki/Archimedean_spiral) equation solved with [contique](https://github.com/adtzlr/contique/blob/main/tests/test_archimedean_spiral.py).
+  
+### Extended Equilibrium Equations
+The `lpf` value is appended to the unknows `x` which gives the so-called extended unknowns `y = [x, lpf]`. One additional control equation is added to the equilibrium equations to ensure `(n+1)` equations in terms of `(n+1)` extended unknowns (see next section). This reduces the solution to a point on the initial solution curve.
+
+### Control Equation
+The control equation is defined as follows: First, a needle-vector with dimension `(n+1)` is created and filled with zeros `needle = 0`. For a given initial signed control component `j` the needle is positioned at `needle[|j|] = 1`. The maximum allowed values per component are calculated as `ymax = y0 + np.sign(j) dymax`. The control equation is finally formulated as `f(y) = needle.T (y - ymax)`.
+
+### Solution Technique
+The numeric solution process is divided into three main parts:
+
+- **Step**
+    + Cycle
+        * *Iteration* (...of a Newton-Rhapson root method)
+  
+As the name implies, a **Step** tries to find the extended unknowns for the next step forward of the equilibrium state. For each Cycle, the initial control component has to be evaluated first (see comment below). The additional control equation is evaluated with this initial control component. The generated extended equilibrium equations in terms of the extended unknows are now solved with the help of a root method (Newton-Rhapson *Iterations*). The solution of the root method `dy` is further normalized as `dy/dymax` and the final control component is evaluated as `j = |j| sign((dy/dymax)[|j|])` with `|j| = argmax(|dy/dymax|)`. If the control component changed, another Cycle is performed with the initial control component being now the final control component of the last cycle. This Cycle-loop is repeated until the control component does not change anymore.
+
+> **Note**
+> Pre-evaluation of the initial control component of a **Step**: This is performed by the linear solution of the extended equilibrium equations. It is equal to the result of the first *Iteration* of the Newton-Rhapson root method.
 
 ## 📄 Changelog
 All notable changes to this project will be documented in [this file](CHANGELOG.md). The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
