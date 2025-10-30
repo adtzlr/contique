@@ -3,6 +3,11 @@ All notable changes to this project will be documented in this file. The format 
 
 ## [Unreleased]
 
+### Changed
+- Change the logo.
+- Enhance docstrings for better descriptions.
+- Modernize `pyproject.toml`.
+
 ## [1.0.0] - 2023-05-12
 
 ### Added

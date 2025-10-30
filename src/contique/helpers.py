@@ -7,30 +7,33 @@ import numpy as np
 
 
 def needle(component: int, length: int):
-    """Return an array of zeros with a needle at a given ``component`` and
-    ``length``. This array is used to slice out the j-th component of another
-    1d-array.
-
-    ..  code-block::
-
-        x_j = needle(component, length).dot(x)
-
-
-    Furthermore, the derivative of this  equation w.r.t. ``x`` results in
-    ``needle(component, length)``.
+    """Return an array with a given length, which contains zeros and a single item at
+    index ``component`` with value one. This array is used to  slice out the j-th
+    component of another 1d-array.
 
     Parameters
     ----------
     component : int
-        Component at which the needle should be positioned.
+        Component at which the value of 1 should be placed.
     length : int
         Length of the output array.
 
     Returns
     -------
     ndarray
-        1d-array with a needle at item ``component`` and zero for all other
+        1d-array with a needle at index ``component`` and zero for all other
         items.
+
+    Notes
+    -----
+
+    ..  code-block::
+
+        x_j = needle(component, length).dot(x)
+
+
+    The derivative of this  equation w.r.t. ``x`` results in
+    ``needle(component, length)``.
 
     Examples
     --------
@@ -63,15 +66,15 @@ def control(x):
     Returns
     -------
     int
-        Position which contains the greatest absolute value of `x`.
+        Index which contains the greatest absolute value of `x`.
     int
         Sign of the greatest value.
     """
 
     # 0-indexed position
-    component = abs(x).argmax()
+    idx = abs(x).argmax()
 
-    return component, int(np.sign(x[component]))
+    return idx, int(np.sign(x[idx]))
 
 
 def argparser(fun):
