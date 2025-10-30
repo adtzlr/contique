@@ -7,6 +7,7 @@ All notable changes to this project will be documented in this file. The format 
 - Change the logo.
 - Enhance docstrings for better descriptions.
 - Modernize `pyproject.toml`.
+- Change the internal function name `needle()` to `one_hot()`.
 
 ## [1.0.0] - 2023-05-12
 
