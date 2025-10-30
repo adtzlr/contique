@@ -1,22 +1,18 @@
 <p align="center">
-  <img src="https://github.com/adtzlr/contique/assets/5793153/86662194-2e2f-4dd6-b7de-5adf3270105d"/>
+  <img height="200" alt="Image" src="https://github.com/user-attachments/assets/91912121-35df-4fac-a950-2fe4f75f51a9"/>
   <p align="center">Numerical continuation of nonlinear equilibrium equations.</p>
 </p>
 
 [![PyPI version shields.io](https://img.shields.io/pypi/v/contique.svg)](https://pypi.python.org/pypi/contique/)
 [![PyPI pyversions](https://img.shields.io/pypi/pyversions/contique.svg)](https://pypi.python.org/pypi/contique/)
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
-![Made with love in Graz](https://madewithlove.now.sh/at?heart=true&colorA=%233b3b3b&colorB=%231f744f&text=Graz)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.7931300.svg)](https://doi.org/10.5281/zenodo.7931300)
 [![codecov](https://codecov.io/gh/adtzlr/contique/branch/main/graph/badge.svg?token=CXKRL8TLQY)](https://codecov.io/gh/adtzlr/contique)
 
-Contique is a Python 3.7+ package that provides methods for numeric continuation. It depends on
+Contique is a Python 3.9+ package that provides methods for numeric continuation. It depends on
 - `numpy` (for arrays) and
 - `scipy` (check if matrix is sparse and for a sparse solver).
-
-> **Note**
-> The original motivation was to create a generalized standalone package with the built-in numeric continuation methods taken from the nonlinear truss analysis package [trusspy](https://github.com/adtzlr/trusspy).
 
 ## Numeric Continuation
 
