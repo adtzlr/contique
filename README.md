@@ -155,6 +155,14 @@ As the name implies, a **Step** tries to find the extended unknowns for the next
 > **Note**
 > Pre-evaluation of the initial control component of a **Step**: This is performed by the linear solution of the extended equilibrium equations. It is equal to the result of the first *Iteration* of the Newton-Rhapson root method.
 
+## 🛠️ Testing
+
+To run the contique unit tests, check out this repository and type
+
+```
+tox
+```
+
 ## 📄 Changelog
 All notable changes to this project will be documented in [this file](CHANGELOG.md). The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
