@@ -1,15 +1,14 @@
 """
 contique: Numerical continuation of nonlinear equilibrium equations.
-Andreas Dutzler, 2023
 """
 
 import numpy as np
 
 
-def needle(component: int, length: int):
+def one_hot(component: int, length: int) -> np.ndarray:
     """Return an array with a given length, which contains zeros and a single item at
-    index ``component`` with value one. This array is used to  slice out the j-th
-    component of another 1d-array.
+    index ``component`` with value one. This array is used to slice out the one-hot
+    j-th component of another 1d-array.
 
     Parameters
     ----------
@@ -21,25 +20,26 @@ def needle(component: int, length: int):
     Returns
     -------
     ndarray
-        1d-array with a needle at index ``component`` and zero for all other
+        1d-array with a value of one at index ``component`` and zeros for all other
         items.
 
     Notes
     -----
+    The one-hot array can be used to extract the j-th component of another 1d-array
+    ``x`` of the same length via the dot product.
 
     ..  code-block::
 
-        x_j = needle(component, length).dot(x)
-
+        x_j = one_hot(component, length).dot(x)
 
     The derivative of this  equation w.r.t. ``x`` results in
-    ``needle(component, length)``.
+    ``one_hot(component, length)``.
 
     Examples
     --------
-    A needle vector with ``length = 9`` and a needle at ``component=5``.
+    A one-hot vector with ``length = 9`` and ``component=5``.
 
-    >>> needle(5, 9)
+    >>> contique.one_hot(5, 9)
     array([0, 0, 0, 0, 0, 1, 0, 0, 0])
 
     """
@@ -47,21 +47,20 @@ def needle(component: int, length: int):
     # init a 1d-array filled with zeros
     n = np.zeros(length, dtype=int)
 
-    # insert needle
+    # insert one-hot component
     n[component] = 1
 
     return n
 
 
-def control(x):
-    """Obtain the index and the sign of the greatest absolute value of a
-    1d-array. The returned integer and the sign are taken from
-    the greatest value.
+def control(x: np.ndarray) -> tuple[int, int]:
+    """Obtain the index and the sign of the greatest absolute value of a 1d-array. The
+    returned integer and the sign are taken from the greatest value.
 
     Parameters
     ----------
     x : ndarray
-        1d-array
+        Input 1d-array
 
     Returns
     -------
@@ -77,7 +76,7 @@ def control(x):
     return idx, int(np.sign(x[idx]))
 
 
-def argparser(fun):
+def argparser(fun: callable) -> callable:
     "Function decorator for the handling of function arguments."
 
     def inner(x, *args, **kwargs):
@@ -98,7 +97,7 @@ def argparser(fun):
     return inner
 
 
-def argparser2(fun):
+def argparser2(fun: callable) -> callable:
     """Function decorator for the handling of function arguments
     with 2 primary arguments followed by other args."""
 
