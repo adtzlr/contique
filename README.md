@@ -130,12 +130,12 @@ plt.gca().set_aspect("equal")
 
 [![Equilibrium-Equations-SinCos](https://github.com/adtzlr/contique/assets/5793153/20fb6415-d226-4859-b818-4f79194ba1e2)](https://github.com/adtzlr/contique/blob/main/tests/test_sincos.py)
 
-Fig. 2 Solution states of [equilibrium equations](https://github.com/adtzlr/contique/blob/main/tests/test_sincos.py) solved with [contique](https://github.com/adtzlr/contique/blob/main/tests/test_sincos.py).
+Fig. 1 Solution states of [equilibrium equations](https://github.com/adtzlr/contique/blob/main/tests/test_sincos.py) solved with [contique](https://github.com/adtzlr/contique/blob/main/tests/test_sincos.py).
 
 ## 📝 A Brief Theory Guide - Numeric Continuation
 [![Archimedean-Spiral](https://github.com/adtzlr/contique/assets/5793153/6b38c783-bdfc-470a-8a66-82a3ca663407)](https://github.com/adtzlr/contique/blob/main/tests/test_archimedean_spiral.py)
 
-Fig. 1 [Archimedean spiral](https://en.wikipedia.org/wiki/Archimedean_spiral) equation solved with [contique](https://github.com/adtzlr/contique/blob/main/tests/test_archimedean_spiral.py).
+Fig. 2 [Archimedean spiral](https://en.wikipedia.org/wiki/Archimedean_spiral) equation solved with [contique](https://github.com/adtzlr/contique/blob/main/tests/test_archimedean_spiral.py).
   
 ### Extended Equilibrium Equations
 The `lpf` value is appended to the unknows `x` which gives the so-called extended unknowns `y = [x, lpf]`. One additional control equation is added to the equilibrium equations to ensure `(n+1)` equations in terms of `(n+1)` extended unknowns (see next section). This reduces the solution to a point on the initial solution curve.
