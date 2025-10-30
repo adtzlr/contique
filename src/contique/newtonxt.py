@@ -1,6 +1,5 @@
 """
 contique: Numerical continuation of nonlinear equilibrium equations.
-Andreas Dutzler, 2023
 """
 
 import numpy as np
