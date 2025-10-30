@@ -93,6 +93,49 @@ def solve(
     Res : list
         List of NewtonResults (with res.x being the final unknowns per step)
 
+    Examples
+    --------
+    A given set of equilibrium equations in terms of x and lpf (a.k.a. load-
+    proportionality-factor) should be solved by numeric continuation of a given initial
+    solution. Let's choose a function
+
+    >>> import numpy as np
+    >>>
+    >>> def fun(x, lpf, a, b):
+    >>>     return np.array(
+    >>>         [-a * np.sin(x[0]) + x[1] ** 2 + lpf, -b * np.cos(x[1]) * x[1] + lpf]
+    >>>     )
+
+    with its initial solution and function parameters.
+
+    >>> x0 = np.zeros(2)
+    >>> lpf0 = 0.0
+    >>>
+    >>> a = 1
+    >>> b = 1
+
+    Now let's run :func:`contique.solve` and plot the states of equilibrium.
+
+    >>> import contique
+    >>>
+    >>> res = contique.solve(
+    >>>     fun=fun,
+    >>>     x0=x0,
+    >>>     args=(a, b),
+    >>>     lpf0=lpf0,
+    >>>     dxmax=0.1,
+    >>>     dlpfmax=0.1,
+    >>>     maxsteps=75,
+    >>>     maxcycles=4,
+    >>>     maxiter=20,
+    >>>     tol=1e-8,
+    >>>     overshoot=1.05,
+    >>> )
+
+    The results may be assembled into one array as follows.
+
+    >>> x = np.array([r.x for r in res])
+
     """
 
     # allow passing empty *args to fun(x, lpf)
