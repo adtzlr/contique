@@ -32,7 +32,7 @@ Contique depends on
 - `numpy` (for arrays) and
 - `scipy` (check if matrix is sparse and for a sparse solver).
 
-## Theory Guide - Numeric Continuation
+## 📝 A Brief Theory Guide - Numeric Continuation
 [![Archimedean-Spiral](https://github.com/adtzlr/contique/assets/5793153/6b38c783-bdfc-470a-8a66-82a3ca663407)](https://github.com/adtzlr/contique/blob/main/tests/test_archimedean_spiral.py)
 
 Fig. 1 [Archimedean spiral](https://en.wikipedia.org/wiki/Archimedean_spiral) equation solved with [contique](https://github.com/adtzlr/contique/blob/main/tests/test_archimedean_spiral.py).
