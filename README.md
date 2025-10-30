@@ -33,7 +33,7 @@ Contique depends on
 - `scipy` (check if matrix is sparse and for a sparse solver).
 
 ## 🚀 Getting Started
-A given set of equilibrium equations in terms of `x` and `lpf` (a.k.a. load-proportionality-factor) should be solved by numeric continuation of a given initial solution. We start with the definition of a function
+A given set of equilibrium equations in terms of `x` and `lpf` (a.k.a. load-proportionality-factor) should be solved by numeric continuation of a given initial solution. Let's choose a function
 
 ```python
 import numpy as np
