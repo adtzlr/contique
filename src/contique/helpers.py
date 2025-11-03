@@ -101,7 +101,7 @@ def argparser2(fun: callable) -> callable:
         "Pass `*args` to a function if they are not None."
         no_args = (len(args) == 1 and args[0] is None) or not bool(args)
 
-        if no_args
+        if no_args:
             f = fun(x, lpf)
         else:
             f = fun(x, lpf, *args)
