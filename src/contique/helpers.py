@@ -79,19 +79,15 @@ def control(x: np.ndarray) -> tuple[int, int]:
 def argparser(fun: callable) -> callable:
     "Function decorator for the handling of function arguments."
 
-    def inner(x, *args, **kwargs):
-        "Pass `*args` and `**kwargs` to a function if they are not None."
+    def inner(x, *args):
+        "Pass `*args` to a function if they are not None."
         no_args = (len(args) == 1 and args[0] is None) or not bool(args)
-        no_kwargs = not bool(kwargs)
 
-        if no_args and no_kwargs:
+        if no_args:
             f = fun(x)
-        elif not no_args and no_kwargs:
-            f = fun(x, *args)
-        elif no_args and not no_kwargs:
-            f = fun(x, **kwargs)
         else:
-            f = fun(x, *args, **kwargs)
+            f = fun(x, *args)
+
         return f
 
     return inner
@@ -101,19 +97,15 @@ def argparser2(fun: callable) -> callable:
     """Function decorator for the handling of function arguments
     with 2 primary arguments followed by other args."""
 
-    def inner2(x, lpf, *args, **kwargs):
-        "Pass `*args` and `**kwargs` to a function if they are not None."
+    def inner2(x, lpf, *args):
+        "Pass `*args` to a function if they are not None."
         no_args = (len(args) == 1 and args[0] is None) or not bool(args)
-        no_kwargs = not bool(kwargs)
 
-        if no_args and no_kwargs:
+        if no_args:
             f = fun(x, lpf)
-        elif not no_args and no_kwargs:
-            f = fun(x, lpf, *args)
-        elif no_args and not no_kwargs:
-            f = fun(x, lpf, **kwargs)
         else:
-            f = fun(x, lpf, *args, **kwargs)
+            f = fun(x, lpf, *args)
+
         return f
 
     return inner2
