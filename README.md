@@ -19,10 +19,7 @@ Contique's
 
 is best classified as a 
 
-- ✅ **component-based continuation**
-
-with an
-
+- ✅ **component-based continuation** with an
 - ✅ adaptive **magnitude-based control-component switching**.
 
 > [!NOTE]
