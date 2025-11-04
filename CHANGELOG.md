@@ -3,6 +3,8 @@ All notable changes to this project will be documented in this file. The format 
 
 ## [Unreleased]
 
+## [1.1.0] - 2025-11-04
+
 ### Changed
 - Change the logo.
 - Enhance docstrings for better descriptions.
