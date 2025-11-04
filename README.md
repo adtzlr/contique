@@ -10,7 +10,7 @@
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.7931300.svg)](https://doi.org/10.5281/zenodo.7931300)
 [![codecov](https://codecov.io/gh/adtzlr/contique/branch/main/graph/badge.svg?token=CXKRL8TLQY)](https://codecov.io/gh/adtzlr/contique)
 
-Contique is a Python 3.9+ package that provides methods for numeric continuation.
+Contique is a Python 3.10+ package that provides methods for numeric continuation.
 
 ## ✨ Highlights
 Contique's
